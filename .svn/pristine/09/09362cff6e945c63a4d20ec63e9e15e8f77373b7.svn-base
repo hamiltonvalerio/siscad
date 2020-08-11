@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<header th:fragment="cabecalho">
+	<nav class="navbar fixed-top navbar-expand-lg " style="background-color: #2e3192;">
+	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	        <ul class="navbar-nav mr-auto">
+	            <li class="nav-item" ><a class="nav-link" href="#">Home</a></li>
+	            <li class="nav-item" ><a class="nav-link" th:href="@{/externo/ficha_cadastral}">Ficha Cadastral</a></li>
+	            <li class="nav-item"><a class="nav-link" href="#">RH</a>
+	            <!-- First Tier Drop Down -->
+	            <ul>
+	                <li class="nav-item"><a class="nav-link" th:href="@{/empregado/interno/novo_empregado}">Novo Empregado</a></li>
+	                <li class="nav-item"><a class="nav-link" href="#">Buscar</a></li>
+	                <li class="nav-item"><a class="nav-link" href="#">Liberar Acesso</a>
+	                	<!-- Second Tier Drop Down -->
+	                    <ul>
+	                        <li class="nav-item"><a class="nav-link" href="#">Link One</a></li>
+	                        <li class="nav-item"><a class="nav-link" href="#">Link Two</a></li>
+	                        <li class="nav-item"><a class="nav-link" href="#">Link Three</a>
+	                            <!-- Third Tier Drop Down -->
+	                            <ul>
+	                                <li class="nav-item"><a class="nav-link" href="#">Link One</a></li>
+	                                <li class="nav-item"><a class="nav-link" href="#">Link Two</a></li>
+	                                <li class="nav-item"><a class="nav-link" href="#">Link Three</a></li>
+	                            </ul>
+	                        </li>
+	                    </ul>
+	                </li>
+	    
+	            </ul>
+	            </li>
+	            <li class="nav-item"><a class="nav-link" href="#">TI</a>
+	                	<!-- Second Tier Drop Down -->
+	                    <ul>
+	                        <li class="nav-item"><a class="nav-link" th:href="@{/sistema/sistema}">Sistema</a></li>
+	                        <li class="nav-item"><a class="nav-link" href="#">Cadastros</a>
+	                            <!-- Third Tier Drop Down -->
+	                            <ul>
+	                                <li class="nav-item"><a class="nav-link" th:href="@{/cadastros/hack/hackcad.html}">Hacks</a></li>
+	                                <li class="nav-item"><a class="nav-link" th:href="@{/cadastros/servidor/servcad.html}">Servidores</a></li>
+	                                <li class="nav-item"><a class="nav-link" th:href="@{/cadastros/vm/vmcad.html}">VMs</a></li>
+	                            </ul>
+	                        </li>
+	                    </ul>
+	                </li>
+	  
+	        </ul>
+	        <ul class="navbar-nav navbar-right">
+					<li class="nav-item"><a href="#"><span class="glyphicon glyphicon-user"></span>
+							<span th:utext="${userName}"></span></a></li>
+					<li class="nav-item"><a th:href="@{/logout}"><span
+							class="glyphicon glyphicon-log-in"></span> Sair</a></li>
+				</ul>
+	    </div>
+	</nav>
+	</header>
+</body>
+</html>

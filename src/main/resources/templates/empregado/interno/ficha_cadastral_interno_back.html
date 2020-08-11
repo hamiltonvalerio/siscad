@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+			var currentTab = $(e.target).text(); // get current tab
+			switch (currentTab) {
+			case 'Formação': //do nothing
+				var table = $('#datatableformacao').DataTable();
+				$('#container').css('display', 'block');
+				table.columns.adjust().draw();
+				//alert('formação');
+				break;
+			case 'Dependentes':
+				//alert('dependentes');
+				var table = $('#datatabledependente').DataTable();
+				$('#container').css('display', 'block');
+				table.columns.adjust().draw();
+				break;
+			default: //do nothing 
+			}
+			;
+		});
+	});
+
+	$(function() {
+		$("#select_estados")
+				.on(
+						'change',
+						function() {
+							var selectedIndex = $(
+									"#select_estados option:selected").val();
+							alert(selectedIndex);
+							$
+									.ajax({
+										type : "GET",
+										url : "http://servicodados.ibge.gov.br/api/v1/localidades/estados/"
+												+ selectedIndex + "/municipios",
+										contentType : "application/json; charset=utf-8",
+										sync : false,
+										data : "",
+										dataType : "json",
+										crossDomain : true,
+										success : function(data) {
+											SucessCallback(data);
+										},
+										error : function(data) {
+											FailureCallBack(data);
+										}
+									});
+						});
+	});
+	function SucessCallback(result) {
+		//limpa o select
+		$('#munnasc').find('option').remove().end();
+
+		//popula o select
+		$.each(result, function(i, item) {
+			//alert("teste: "+item.handle);
+			$('#munnasc').append($('<option>', {
+				value : item.id,
+				text : item.nome
+			}));
+		});
+	}
+
+	function FailureCallBack(result) {
+		alert("Erro a");
+		alert(result.status + ' ' + result.statusText);
+		$('p').html(
+				'Resultado: ' + result.nome + ' <br /> Descrição: '
+						+ result.Description);
+	}
+
+	$(function() {
+		$('#cpf')
+				.on(
+						'blur',
+						function() {
+							var value = $(this).val();
+							value = value.replace('.', '');
+							value = value.replace('.', '');
+							cpf = value.replace('-', '');
+							while (cpf.length < 11)
+								cpf = "0" + cpf;
+							var expReg = /^0+$|^1+$|^2+$|^3+$|^4+$|^5+$|^6+$|^7+$|^8+$|^9+$/;
+							var a = [];
+							var b = new Number;
+							var c = 11;
+							for (i = 0; i < 11; i++) {
+								a[i] = cpf.charAt(i);
+								if (i < 9)
+									b += (a[i] * --c);
+							}
+							if ((x = b % 11) < 2) {
+								a[9] = 0
+							} else {
+								a[9] = 11 - x
+							}
+							b = 0;
+							c = 11;
+							for (y = 0; y < 10; y++)
+								b += (a[y] * c--);
+							if ((x = b % 11) < 2) {
+								a[10] = 0;
+							} else {
+								a[10] = 11 - x;
+							}
+
+							var retorno = true;
+							if ((cpf.charAt(9) != a[9])
+									|| (cpf.charAt(10) != a[10])
+									|| cpf.match(expReg))
+								retorno = false;
+
+							if (!retorno) {
+								alert("CPF invalido");
+								$(this).val("");
+							}
+
+						});
+	});
+
+	$(function() {
+		$("#select_estados_res")
+				.on(
+						'change',
+						function() {
+							var un = /*[[${selectEstados}]]*/null;
+							var selectedIndex = $(
+									"#select_estados_res option:selected")
+									.val();
+							$
+									.ajax({
+										type : "GET",
+										url : "http://servicodados.ibge.gov.br/api/v1/localidades/estados/"
+												+ selectedIndex + "/municipios",
+										contentType : "application/json; charset=utf-8",
+										sync : false,
+										data : "",
+										dataType : "json",
+										crossDomain : true,
+										success : function(data) {
+											SucessCallbackRes(data);
+										},
+										error : function(data) {
+											FailureCallBackRes(data);
+										}
+									});
+						});
+	});
+	function SucessCallbackRes(result) {
+
+		//limpa o select
+		$('#munres').find('option').remove().end();
+
+		//popula o select
+		$.each(result, function(i, item) {
+			//alert("teste: "+item.handle);
+			$('#munres').append($('<option>', {
+				value : item.id,
+				text : item.nome
+			}));
+		});
+	}
+
+	function FailureCallBackRes(result) {
+		alert("Erro b");
+		alert(result.status + ' ' + result.statusText);
+		$('p').html(
+				'Resultado: ' + result.nome + ' <br /> Descrição: '
+						+ result.Description);
+	}
+
+	$(document).ready(function() {
+		$('#validacep').click(function() {
+			var value = $('#cepres').val();
+			value = value.replace('.', '');
+			value = value.replace('-', '');
+			value = value.trim();
+
+			$.ajax({
+				type : "GET",
+				url : "https://viacep.com.br/ws/" + value + "/json/",
+				contentType : "application/json; charset=utf-8",
+				sync : false,
+				data : "",
+				dataType : "json",
+				crossDomain : true,
+				success : function(data) {
+					SucessCallbackBuscaCep(data);
+				},
+				error : function(data) {
+					FailureCallBackBuscaCep(data);
+				}
+			});
+		});
+	});
+
+	function SucessCallbackBuscaCep(result) {
+
+		$('#enderecores').val(result.logradouro);
+		$('#bairrores').val(result.bairro);
+		var estado = result.ibge;
+		var res = estado.substring(0, 2);
+		$('#select_estados_res').val(res);
+
+		$.ajax({
+			type : "GET",
+			url : "http://servicodados.ibge.gov.br/api/v1/localidades/estados/"
+					+ res + "/municipios",
+			contentType : "application/json; charset=utf-8",
+			sync : false,
+			data : "",
+			dataType : "json",
+			crossDomain : true,
+			success : function(data) {
+				SucessCallbackRes(data);
+				//alert(estado);
+				$('#munres').val(estado);
+			},
+			error : function(data) {
+			}
+		});
+
+	}
+
+	/************************AGENCIA*******************************/
+
+	$(function() {
+		$("#select_estados_ufag")
+				.on(
+						'change',
+						function() {
+							var un = /*[[${selectEstados}]]*/null;
+							var selectedIndex = $(
+									"#select_estados_ufag option:selected")
+									.val();
+							$
+									.ajax({
+										type : "GET",
+										url : "http://servicodados.ibge.gov.br/api/v1/localidades/estados/"
+												+ selectedIndex + "/municipios",
+										contentType : "application/json; charset=utf-8",
+										sync : false,
+										data : "",
+										dataType : "json",
+										crossDomain : true,
+										success : function(data) {
+											SucessCallbackAg(data);
+										},
+										error : function(data) {
+											FailureCallBackAg(data);
+										}
+									});
+						});
+	});
+	function SucessCallbackAg(result) {
+
+		//limpa o select
+		$('#munag').find('option').remove().end();
+
+		//popula o select
+		$.each(result, function(i, item) {
+			//alert("teste: "+item.handle);
+			$('#munag').append($('<option>', {
+				value : item.id,
+				text : item.nome
+			}));
+		});
+	}
+
+	function FailureCallBackAg(result) {
+		alert("Erro b");
+		alert(result.status + ' ' + result.statusText);
+		$('p').html(
+				'Resultado: ' + result.nome + ' <br /> Descrição: '
+						+ result.Description);
+	}
+
+	$(document).ready(function() {
+		$('#validacepag').click(function() {
+			var value = $('#cepag').val();
+			value = value.replace('.', '');
+			value = value.replace('-', '');
+			value = value.trim();
+
+			$.ajax({
+				type : "GET",
+				url : "https://viacep.com.br/ws/" + value + "/json/",
+				contentType : "application/json; charset=utf-8",
+				sync : false,
+				data : "",
+				dataType : "json",
+				crossDomain : true,
+				success : function(data) {
+					SucessCallbackBuscaCepAg(data);
+				},
+				error : function(data) {
+					FailureCallBackBuscaCepAg(data);
+				}
+			});
+		});
+	});
+
+	function SucessCallbackBuscaCepAg(result) {
+
+		$('#endagencia').val(result.logradouro);
+		$('#bairroagencia').val(result.bairro);
+		var estado = result.ibge;
+		var res = estado.substring(0, 2);
+		$('#select_estados_ufag').val(res);
+
+		$.ajax({
+			type : "GET",
+			url : "http://servicodados.ibge.gov.br/api/v1/localidades/estados/"
+					+ res + "/municipios",
+			contentType : "application/json; charset=utf-8",
+			sync : false,
+			data : "",
+			dataType : "json",
+			crossDomain : true,
+			success : function(data) {
+				SucessCallbackAg(data);
+				//alert(estado);
+				$('#munag').val(estado);
+			},
+			error : function(data) {
+			}
+		});
+
+	}
+
+	/************************FIM AGENCIA*******************************/
+
+	/* $(document).ready(function() {
+		$('#tab-dadospessoais').click(function(e) {
+			e.preventDefault();
+			var form = $("#formficha");
+			var url = form.attr('action');
+			$.ajax({
+				type : "POST",
+				url : url,
+				data : form.serialize(),
+				success : function(data) {
+					console.log("success");
+				},
+				error : function(data) {
+					console.log("erro");
+				}
+			});
+		});
+	}); */
+
+	$(function() {
+		$('#meuDiv').hide();
+
+		$('#select_instemp').change(function() {
+			//if ($(this).val() === 'outro') {
+			if ($('#select_instemp option:selected').text() === 'outro') {
+				$('#meuDiv').show();
+				$('#select_instemp').hide();
+			}
+		});
+
+		$('#cancel').click(function() {
+			$('#select_instemp').show();
+			$('#select_instemp').val('');
+			$('#meuDiv').hide();
+		});
+	});
+
+	$(document)
+			.ready(
+					function() {
+						var table = $('#datatableformacao')
+								.DataTable(
+										{
+											ajax : {
+												type : 'GET',
+												url : '/empregado/interno/listaformacoes',
+												dataSrc : '',
+												contentType : "application/json; charset=utf-8",
+												dataType : "json"
+											},
+											"columns" : [
+													{
+														"mData" : "curso",
+														"width" : "50%"
+													},
+													{
+														"mData" : "titulacao",
+														"width" : "20%"
+													},
+													{
+														"mData" : "dataconclusao",
+														"width" : "20%"
+													},
+													{
+														"mData" : "instensinosup.sg_ies",
+														"width" : "10%"
+													},
+													{
+														"mData" : "id",
+														"fnCreatedCell" : function(
+																nTd, sData,
+																oData, iRow,
+																iCol) {
+															$(nTd)
+																	.html(
+																			"<a href=/empregado/interno/ficha_cadastral_interno/excluirformacao?id="
+																					+ oData.id
+																					+ " onclick=\"return confirm('Deseja excluir a formação')\"><img src=\"/image/dt_icons/delete.png\"/></a>");
+														},
+														"className" : "dt-body-center"
+													} ]
+										});
+
+					});
+
+	function submitForm(url) {
+		var form = $("#formficha");
+		$.ajax({
+			type : 'POST',
+			url : url,
+			data : form.serialize(),
+			success : function(data) {
+				$.ajax({
+					type : "GET",
+					url : "/empregado/interno/listaformacoes",
+					contentType : "application/json; charset=utf-8",
+					sync : false,
+					data : "",
+					dataType : "json",
+					crossDomain : true,
+					success : function(data) {
+						$('#datatableformacao').DataTable().ajax.reload();
+					},
+					error : function(data) {
+
+					}
+				});
+			}
+		});
+	}
+
+	$(document)
+			.ready(
+					function() {
+						var table = $('#datatabledependente')
+								.DataTable(
+										{
+											ajax : {
+												type : 'GET',
+												url : '/empregado/interno/listadependentes',
+												dataSrc : '',
+												contentType : "application/json; charset=utf-8",
+												dataType : "json"
+											},
+											"columns" : [
+													{
+														"mData" : "nomcompdepen",
+														"width" : "30%"
+													},
+													{
+														"mData" : "graupardepen",
+														"width" : "20%"
+													},
+													{
+														"mData" : "cpfdepen",
+														"width" : "20%"
+													},
+													{
+														"mData" : "dtnascdepen",
+														"width" : "10%"
+													},
+													{
+														"mData" : "nmaedepen",
+														"width" : "10%"
+													},
+													{
+														"mData" : "depirdepen",
+														"width" : "10%"
+													},
+													{
+														"mData" : "id",
+														"fnCreatedCell" : function(
+																nTd, sData,
+																oData, iRow,
+																iCol) {
+															$(nTd)
+																	.html(
+																			"<a href=/empregado/interno/ficha_cadastral_interno/excluirdependente?id="
+																					+ oData.id
+																					+ " onclick=\"return confirm('Deseja excluir o dependente')\"><img src=\"/image/dt_icons/delete.png\"/></a>");
+														},
+														"className" : "dt-body-center"
+													} ]
+										});
+					});
+
+	function submitFormDepen(url) {
+		var form = $("#formficha");
+		$.ajax({
+			type : 'POST',
+			url : url,
+			data : form.serialize(),
+			success : function(data) {
+				$.ajax({
+					type : "GET",
+					url : "/empregado/interno/listadependentes",
+					contentType : "application/json; charset=utf-8",
+					sync : false,
+					data : "",
+					dataType : "json",
+					crossDomain : true,
+					success : function(data) {
+						$('#datatabledependente').DataTable().ajax.reload();
+					},
+					error : function(data) {
+
+					}
+				});
+			}
+		});
+	}
+
+	
+	$(function() {
+		$('#cpfdepen')
+				.on(
+						'blur',
+						function() {
+							var value = $(this).val();
+							value = value.replace('.', '');
+							value = value.replace('.', '');
+							cpf = value.replace('-', '');
+							while (cpf.length < 11)
+								cpf = "0" + cpf;
+							var expReg = /^0+$|^1+$|^2+$|^3+$|^4+$|^5+$|^6+$|^7+$|^8+$|^9+$/;
+							var a = [];
+							var b = new Number;
+							var c = 11;
+							for (i = 0; i < 11; i++) {
+								a[i] = cpf.charAt(i);
+								if (i < 9)
+									b += (a[i] * --c);
+							}
+							if ((x = b % 11) < 2) {
+								a[9] = 0
+							} else {
+								a[9] = 11 - x
+							}
+							b = 0;
+							c = 11;
+							for (y = 0; y < 10; y++)
+								b += (a[y] * c--);
+							if ((x = b % 11) < 2) {
+								a[10] = 0;
+							} else {
+								a[10] = 11 - x;
+							}
+
+							var retorno = true;
+							if ((cpf.charAt(9) != a[9])
+									|| (cpf.charAt(10) != a[10])
+									|| cpf.match(expReg))
+								retorno = false;
+
+							if (!retorno) {
+								alert("CPF invalido");
+								$(this).val("");
+							}
+
+						});
+	});
+	
+	
+	/*funcao para manter na aba atual*/
+	$(document).ready(function() {
+		$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+			localStorage.setItem('activeTab', $(e.target).attr('href'));
+		});
+		var activeTab = localStorage.getItem('activeTab');
+		if (activeTab) {
+			$('#myTab a[href="' + activeTab + '"]').tab('show');
+		}
+	});
+</script>
+
+<style type="text/css">
+div.dataTables_wrapper {
+	margin-bottom: 3em;
+}
+</style>
+<link href="/css/datatables.css" rel="stylesheet">
+<link href="/css/datatab.scss" rel="stylesheet">
+<title>EXTERNO</title>
+</head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+		<div class="container">
+			<form class="form-horizontal" id="formficha" method="POST"
+				th:action="@{/empregado/interno/ficha_cadastral_interno/salvar}"
+				th:object="${empregado}" accept-charset="utf-8">
+				<input type="hidden" th:field="*{id}">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item"><a class="nav-link"
+						id="tab-dadospessoais" data-toggle="tab" href="#dadospessoais"
+						role="tab" aria-controls="home" aria-selected="true">Dados
+							Pessoais</a></li>
+					<li class="nav-item"><a class="nav-link" id="tab-formacao"
+						data-toggle="tab" href="#formacao" role="tab"
+						aria-controls="profile" aria-selected="false">Forma&ccedil;&atilde;o</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" id="tab-dependentes"
+						data-toggle="tab" href="#dependentes" role="tab"
+						aria-controls="contact" aria-selected="false">Dependentes</a></li>
+					<li class="nav-item"><a class="nav-link"
+						id="tab-dadosbancarios" data-toggle="tab" href="#dadosbancarios"
+						role="tab" aria-controls="contact" aria-selected="false">Dados
+							Banc&aacute;rios</a></li>
+				</ul>
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="dadospessoais"
+						role="tabpanel" aria-labelledby="tab-dadospessoais">
+						<br>
+						<div class="form-group">
+							<label for="nome">Nome</label> <input type="text"
+								class="form-control" th:field="*{nome}" id="nome"
+								placeholder="Nome Completo">
+						</div>
+						<div class="form-group">
+							<label for="nomesocial">Nome Social</label> <input type="text"
+								class="form-control" th:field="*{nomesocial}" id="nomesocial"
+								placeholder="Nome Social">
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<label for="datanasc">Data Nascimento</label> <input type="date"
+									th:field="*{datanasc}" class="form-control" id="datanasc">
+							</div>
+							<div class="col">
+								<label for="ufnasc">UF Nascimento</label> <select name="ufnasc"
+									th:field="*{estados}" class="form-control" id="select_estados">
+									<option value="" text="" />
+									<option th:each="c: ${selectEstados}"
+										th:value="${c.codigoIbge}" th:text="${c.nome}"></option>
+								</select>
+							</div>
+							<div class="col">
+								<label for="munnasc">Munic&iacute;pio Nascimento</label> <select
+									name="munnasc" th:field="*{munnasc}" class="form-control"
+									id="munnasc">
+									<option value="" text="" />
+									<option th:each="m: ${selectMunicipios}" th:value="${m.id}"
+										th:text="${m.nome}"></option>
+								</select>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<label for="rg">RG</label> <input type="text"
+									th:field="*{rgemp}" class="form-control" id="rg"
+									placeholder="RG">
+							</div>
+							<div class="col">
+								<label for="orgemissor">&Oacute;rg&atilde;o emissor</label> <input
+									type="text" th:field="*{rgemissoremp}" class="form-control"
+									id="orgemissor" placeholder="&Oacute;rg&atilde;o emissor">
+							</div>
+							<div class="col">
+								<label for="cpf">CPF</label> <input type="text"
+									th:field="*{cpf}" name="cpf" maxlength="11"
+									class="form-control cpf" id="cpf" placeholder="CPF">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<label for="estciv">Estado civil</label> <select
+									name="estadocivil" th:field="*{estadosCivis}"
+									class="form-control" id="select_estados_civis">
+									<option value="" text="" />
+									<option th:each="c: ${selectEstadosCivis}"
+										th:value="${c.codigoec}" th:text="${c.nome}"></option>
+								</select>
+							</div>
+							<div class="col">
+								<label for="religiao">Religi&atilde;o</label> <input type="text"
+									th:field="*{religiao}" class="form-control" id="religiao"
+									placeholder="Religi&atilde;o">
+							</div>
+							<div class="col">
+								<label for="Sexo">Sexo</label>
+								<div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											th:field="*{sexoemp}" name="inlineRadioOptions"
+											id="inlineRadio1" value="MASCULINO"> <label
+											class="form-check-label" for="inlineRadio1">Masculino</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											th:field="*{sexoemp}" name="inlineRadioOptions"
+											id="inlineRadio2" value="FEMININO"> <label
+											class="form-check-label" for="inlineRadio2">Feminino</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<label for="racacor">Ra&ccedil;a/Cor</label> <select
+									name="racacor" th:field="*{racaCor}" class="form-control"
+									id="select_raca_cor">
+									<option value="" text="" />
+									<option th:each="c: ${selectRacaCor}"
+										th:value="${c.codigoracacor}" th:text="${c.nome}"></option>
+								</select>
+							</div>
+							<div class="col">
+								<label for="tpsang">Tipo sanguineo</label> <select name="tpsang"
+									th:field="*{tiposSanguineos}" class="form-control"
+									id="select_tpsang">
+									<option value="" text="" />
+									<option th:each="c: ${selectTiposSanguineos}"
+										th:value="${c.codigotpsang}" th:text="${c.nome}"></option>
+								</select>
+							</div>
+							<div class="col">
+								<label for="ftrh">Fator RH</label> <select name="fatorrh"
+									th:field="*{fatorrh}" class="form-control" id="select_tpsang">
+									<option value="" text="" />
+									<option value="POSITIVO" text="POSITIVO">POSITIVO</option>
+									<option value="NEGATIVO" text="NEGATIVO">NEGATIVO</option>
+								</select>
+							</div>
+							<div class="col">
+								<label for="aposentado">Aposentado</label>
+								<div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											th:field="*{aposentado}" name="inlineRadioOptions2"
+											id="inlineRadio1" value="SIM"> <label
+											class="form-check-label" for="inlineRadio1">Sim</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											th:field="*{aposentado}" name="inlineRadioOptions2"
+											id="inlineRadio2" value="NAO"> <label
+											class="form-check-label" for="inlineRadio2">N&atilde;o</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<label for="natap">Natureza AP</label> <input type="text"
+									th:field="*{naturezaap}" class="form-control" id="natap"
+									placeholder="Natureza AP">
+							</div>
+							<div class="col">
+								<label for="nbap">NB AP</label> <input type="text"
+									th:field="*{nbap}" class="form-control" id="nbap"
+									placeholder="NB AP">
+							</div>
+							<div class="col">
+								<label for="email">Email</label> <input type="email"
+									th:field="*{email}" class="form-control" id="email"
+									placeholder="Email">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<label for="telres">Telefone Res</label> <input type="text"
+									th:field="*{telres}" class="form-control" id="telres"
+									placeholder="Telefone residencial">
+							</div>
+							<div class="col">
+								<label for="telcel">Telefone Cel</label> <input type="text"
+									th:field="*{telcel}" class="form-control" id="telcel"
+									placeholder="Telefone celular">
+							</div>
+							<div class="col">
+								<label for="telrec">Telefone Rec</label> <input type="text"
+									th:field="*{telrec}" class="form-control" id="telrec"
+									placeholder="Telefone recado">
+							</div>
+						</div>
+						<div class="form-row">
+
+							<div class="col-2">
+								<label for="cepres">Cep</label> <input type="number"
+									th:field="*{cepres}" class="form-control cepres" id="cepres"
+									placeholder="Cep">
+
+							</div>
+							<div class="col-1">
+								<label></label>
+								<div id="validacep">
+									<img src="/image/dt_icons/lupa.png" />
+								</div>
+							</div>
+							<div class="col">
+								<label for="ufres">UF</label> <select name="ufres"
+									th:field="*{estadosres}" class="form-control"
+									id="select_estados_res">
+									<option value="" text="" />
+									<option th:each="c: ${selectEstadosRes}"
+										th:value="${c.codigoIbge}" th:text="${c.nome}"></option>
+								</select>
+							</div>
+							<div class="col">
+								<label for="munres">Munic&iacute;pio</label> <select
+									name="munres" th:field="*{munres}" class="form-control"
+									id="munres">
+									<option value="" text="" />
+									<option th:each="mr: ${selectMunicipiosRes}"
+										th:value="${mr.id}" th:text="${mr.nome}"></option>
+								</select>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<label for="enderecores">Endere&ccedil;o</label> <input
+									type="text" th:field="*{enderecores}" class="form-control"
+									id="enderecores" placeholder="Endere&ccedil;o">
+							</div>
+							<div class="col">
+								<label for="bairrores">Bairro</label> <input type="text"
+									th:field="*{bairrores}" class="form-control" id="bairrores"
+									placeholder="Bairro">
+							</div>
+						</div>
+						<div class="form-row">
+							<label></label>
+						</div>
+						<div class="form-row">
+							<div class="col-5">
+								<label></label>
+							</div>
+							<div class="col-3">
+								<button class="btn btn-primary">Salvar</button>
+							</div>
+							<div class="col-5">
+								<label></label>
+							</div>
+						</div>
+
+					</div>
+					<div class="tab-pane fade" id="formacao" role="tabpanel"
+						aria-labelledby="tab-formacao">
+						<br>
+						<div class="form-row">
+							<div class="col">
+								<label for="fundamental">Fundamental</label>
+								<div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											th:field="*{formfunemp}" name="inlineRadioOptions3"
+											id="inlineRadio1" value="COMPLETO"> <label
+											class="form-check-label" for="inlineRadio1">Completo
+										</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											th:field="*{formfunemp}" name="inlineRadioOptions3"
+											id="inlineRadio2" value="INCOMPLETO"> <label
+											class="form-check-label" for="inlineRadio2">Incompleto</label>
+									</div>
+								</div>
+							</div>
+							<div class="col">
+								<label for="fundamental">Medio</label>
+								<div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											th:field="*{formmedemp}" name="inlineRadioOptions3"
+											id="inlineRadio1" value="COMPLETO"> <label
+											class="form-check-label" for="inlineRadio1">Completo
+										</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											th:field="*{formmedemp}" name="inlineRadioOptions3"
+											id="inlineRadio2" value="INCOMPLETO"> <label
+											class="form-check-label" for="inlineRadio2">Incompleto</label>
+									</div>
+								</div>
+							</div>
+							<div class="col">
+								<label for="fundamental">Superior</label>
+								<div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											th:field="*{formsupemp}" name="inlineRadioOptions3"
+											id="inlineRadio1" value="COMPLETO"> <label
+											class="form-check-label" for="inlineRadio1">Completo
+										</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											th:field="*{formsupemp}" name="inlineRadioOptions3"
+											id="inlineRadio2" value="INCOMPLETO"> <label
+											class="form-check-label" for="inlineRadio2">Incompleto</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<label for="titulacao">Titulação</label> <select id="titulacao"
+									class="form-control" th:field="*{titulacaores}">
+									<option value=""></option>
+									<option th:value="GRADUACAO">Gradua&ccedil;&atilde;o</option>
+									<option th:value="ESPECIALIZACAO">Especializa&ccedil;&atilde;o</option>
+									<option th:value="MESTRADO">Mestrado</option>
+									<option th:value="DOUTORADO">Doutorado</option>
+									<option th:value="PHD">PHD</option>
+								</select>
+							</div>
+							<div class="col"></div>
+							<div class="col"></div>
+						</div>
+						<div class="form-row">
+							<div class="col-8">
+								<label for="curso">Curso</label> <input type="text"
+									th:field="*{cursoemp}" class="form-control" id="curso"
+									placeholder="Curso" size="200px">
+							</div>
+							<div class="col">
+								<label for="anoconclusao">Ano de conclus&atilde;o</label> <input
+									type="date" th:field="*{dataconclusaoemp}"
+									class="form-control col-5" id="anoconclusao">
+							</div>
+						</div>
+
+						<div class="form-row">
+							<label for="instit">Institui&ccedil;&atilde;o</label> <select
+								name="instemp" th:field="*{instensinosupemp}"
+								class="form-control" id="select_instemp">
+								<option value="" text="" />
+								<option th:each="ie: ${selectInstEns}" th:value="${ie.id}"
+									th:text="${ie.no_ies}"></option>
+							</select>
+						</div>
+
+
+						<div class="form-row" id="meuDiv">
+
+							<input type="text" th:field="*{instensinonovo}"
+								class="form-control col-6" id="instensinonovo" /> <label
+								for="sigla">Sigla</label> <input type="text"
+								th:field="*{siglanovo}" class="form-control col-2"
+								id="siglanovo" /> <label for="rede">Rede</label> <select
+								id="redenovo" class="form-control col-2" th:field="*{redenovo}">
+								<option value=""></option>
+								<option th:value="PUBLICA">PUBLICA</option>
+								<option th:value="PRIVADA">PRIVADA</option>
+							</select>
+							<button type="button" class="btn btn-warning" id="cancel">Cancelar</button>
+
+						</div>
+
+						<div class="form-row">
+							<label></label>
+						</div>
+						<div class="form-row">
+							<div class="col-5">
+								<label></label>
+							</div>
+							<div class="col-3">
+								<button type="button" onclick="submitForm('/incluir')"
+									class="btn btn-primary">Incluir</button>
+								<button type="button" class="btn btn-warning">Limpar</button>
+							</div>
+							<div class="col-5">
+								<label></label>
+							</div>
+						</div>
+
+						<br>
+
+						<fieldset class="scheduler-border">
+							<legend class="scheduler-border">Forma&ccedil;&atilde;o</legend>
+
+							<div class="form-row">
+								<div class="col-12">
+									<table id="datatableformacao"
+										class="table table-striped table-bordered" style="width: 100%">
+
+										<!-- Header Table -->
+										<thead>
+											<tr>
+												<th>Curso</th>
+												<th>Titulação</th>
+												<th>Ano Conclusão</th>
+												<th>Sigla Instituição</th>
+												<th>Exc</th>
+											</tr>
+										</thead>
+										<!-- Footer Table -->
+										<tfoot>
+											<tr>
+												<th>Curso</th>
+												<th>Titulação</th>
+												<th>Ano Conclusão</th>
+												<th>Sigla Instituição</th>
+												<th>Exc</th>
+											</tr>
+										</tfoot>
+									</table>
+
+								</div>
+							</div>
+						</fieldset>
+
+
+
+
+					</div>
+					<div class="tab-pane fade" id="dependentes" role="tabpanel"
+						aria-labelledby="tab-dependentes">
+						<br>
+						<div class="form-row align-items-center">
+							<label>Caso o dependente não possua CPF próprio é
+								necessário informar o CPF da mãe.</label>
+						</div>
+						<div class="form-row">
+							<label for="nomcompdepen">Nome completo</label> <input
+								type="text" th:field="*{nomcompdpemp}" class="form-control"
+								id="nomcompdepend" placeholder="Nome completo do dependente"
+								size="200px">
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<label>Grau de parentesco</label> <input type="text"
+									th:field="*{graupardpemp}" class="form-control"
+									id="graupardepen" placeholder="Grau de parentesco">
+							</div>
+							<div class="col">
+								<label>CPF</label> <input type="text" maxlength="11" th:field="*{cpfdpemp}"
+									class="form-control cpfdepen" id="cpfdepen" placeholder="CPF">
+							</div>
+							<div class="col">
+								<label>Data de nascimento</label> <input type="date"
+									th:field="*{dtnascdpemp}" class="form-control" id="dtnascdpemp">
+							</div>
+						</div>
+						<div class="form-row">
+							<label for="nommaedepen">Nome da mãe</label> <input type="text"
+								th:field="*{nmaedpemp}" class="form-control" id="nmaedpemp"
+								placeholder="Nome da mãe do dependente" size="200px">
+						</div>
+						<div class="form-row">
+							<div class="col">
+								<label for="dependir">Dependente do IR</label>
+								<div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											th:field="*{depirdpemp}" name="inlineRadioOptions2"
+											id="inlineRadio1" value="SIM"> <label
+											class="form-check-label" for="inlineRadio1">Sim</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio"
+											th:field="*{depirdpemp}" name="inlineRadioOptions2"
+											id="inlineRadio2" value="NAO"> <label
+											class="form-check-label" for="inlineRadio2">N&atilde;o</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<label></label>
+						</div>
+						<div class="form-row">
+							<div class="col-5">
+								<label></label>
+							</div>
+							<div class="col-3">
+								<button type="button"
+									onclick="submitFormDepen('/incluirdependente')"
+									class="btn btn-primary">Incluir</button>
+								<button type="button" class="btn btn-warning">Limpar</button>
+							</div>
+							<div class="col-5">
+								<label></label>
+							</div>
+						</div>
+						<br>
+						<table id="datatabledependente"
+							class="table table-striped table-bordered" style="width: 100%">
+							<thead>
+								<tr>
+									<th>Nome</th>
+									<th>Grau parentesco</th>
+									<th>CPF</th>
+									<th>Data Nasc</th>
+									<th>Nome mãe</th>
+									<th>IR</th>
+									<th>Exc</th>
+								</tr>
+							</thead>
+
+							<tfoot>
+								<tr>
+									<th>Nome</th>
+									<th>Grau parentesco</th>
+									<th>CPF</th>
+									<th>Data Nasc</th>
+									<th>Nome mãe</th>
+									<th>IR</th>
+									<th>Exc</th>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+					<div class="tab-pane fade" id="dadosbancarios" role="tabpanel"
+						aria-labelledby="tab-dadosbancarios">
+						<br>
+						<div class="form-row align-items-center">
+							<label>Não pode ser conta poupança ou conjunta.</label>
+						</div>
+						<br>
+						<div class="form-row">
+							<div class="col">
+								<label>Conta Salário/Corrente</label> <input type="text"
+									th:field="*{numconta}" class="form-control" id="numconta"
+									placeholder="número conta" size="100px">
+							</div>
+							<div class="col-1">
+								<label>&nbsp&nbsp</label> <input type="text"
+									th:field="*{digconta}" class="form-control" id="digconta"
+									placeholder="dígito" size="30px">
+							</div>
+							<div class="col">
+								<label>Agência</label> <input type="text"
+									th:field="*{numagencia}" class="form-control" id="numagencia"
+									placeholder="número agência" size="100px">
+							</div>
+							<div class="col-1">
+								<label>&nbsp&nbsp</label> <input type="text"
+									th:field="*{digagencia}" class="form-control" id="digagencia"
+									placeholder="dígito" size="30px">
+							</div>
+						</div>
+						<div class="form-row">
+							<label>Banco</label> <select id="bancocontaemp"
+								class="form-control" th:field="*{bancocontaemp}">
+								<option selected value="Caixa Econômica Federal">Caixa
+									Econômica Federal</option>
+								<option value="Banco do Brasil">Banco do Brasil</option>
+								<option value="Bradesco">Bradesco</option>
+								<option value="Santander">Santander</option>
+							</select>
+						</div>
+						<div class="form-row">
+							<div class="col-7">
+								<label>Nome da Agência</label> <input type="text"
+									th:field="*{nomeagencia}" class="form-control" id="nomeagencia"
+									placeholder="nome da agência">
+							</div>
+							<div class="col-4">
+								<label for="cepag">Cep Agência</label> <input type="number"
+									th:field="*{cepagencia}" class="form-control cepag" id="cepag"
+									placeholder="cep da agência">
+							</div>
+							<div class="col-1">
+								<label></label>
+								<div id="validacepag">
+									<img src="/image/dt_icons/lupa.png" />
+								</div>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="col">
+								<label>Endereço da agência</label> <input type="text"
+									th:field="*{endagencia}" class="form-control" id="endagencia"
+									placeholder="endereço da agência">
+							</div>
+							<div class="col-1">
+								<label>Número</label> <input type="number"
+									th:field="*{numendagencia}" class="form-control"
+									id="numendagencia" placeholder="número do endereço da agência">
+							</div>
+						</div>
+						<div class="form-row">
+							<label>Bairro</label> <input type="text"
+								th:field="*{bairroagencia}" class="form-control"
+								id="bairroagencia" placeholder="bairro da agência">
+						</div>
+						<div class="form-row">
+
+							<div class="col">
+								<label for="ufag">UF</label> <select name="ufag"
+									th:field="*{ufag}" class="form-control"
+									id="select_estados_ufag">
+									<option value="" text="" />
+									<option th:each="c: ${selectEstadosUfag}"
+										th:value="${c.codigoIbge}" th:text="${c.nome}"></option>
+								</select>
+							</div>
+							<div class="col">
+								<label for="munag">Munic&iacute;pio</label> <select name="munag"
+									th:field="*{munag}" class="form-control" id="munag">
+									<option value="" text="" />
+									<option th:each="ma: ${selectMunicipiosMunag}"
+										th:value="${ma.id}" th:text="${ma.nome}"></option>
+								</select>
+							</div>
+						</div>
+						<HR>
+						<div class="form-row">
+							<label></label>
+						</div>
+						<div class="form-row">
+							<div class="col-5">
+								<label></label>
+							</div>
+							<div class="col-3">
+								<button class="btn btn-primary">Finalizar Cadastro</button>
+							</div>
+							<div class="col-5">
+								<label></label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<br> <br> <br>
+	</section>
+</body>
+</html>

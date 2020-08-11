@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="confilto" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cfc2121c-6bd2-4817-8fe2-fd4fffbba56a">
+	<property name="ireport.zoom" value="1.9487171000000014"/>
+	<property name="ireport.x" value="66"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="EMPREGADO_ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[124]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LOGO" class="java.io.InputStream" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT
+     empregado."id" AS empregado_id,
+     empregado."cpf" AS empregado_cpf,
+     empregado."nome" AS empregado_nome
+FROM
+     "public"."empregado" empregado
+WHERE
+     empregado."id"	= $P{EMPREGADO_ID}]]>
+	</queryString>
+	<field name="empregado_id" class="java.lang.Long"/>
+	<field name="empregado_cpf" class="java.lang.String"/>
+	<field name="empregado_nome" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="129" splitType="Stretch">
+			<image>
+				<reportElement x="225" y="0" width="92" height="81" uuid="603ee285-a962-480a-800a-2344ca7a8a57"/>
+				<imageExpression><![CDATA[$P{LOGO}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="89" width="555" height="20" uuid="efdedb2f-3ea8-4b4b-8537-8669205e8ebf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SITUAÇÕES QUE CONFIGURAM CONFLITO DE INTERESSES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="109" width="555" height="20" uuid="ca6237c4-3609-4cd7-be3c-a0dd5b56a7cc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DECLARAÇÃO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="11" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="19"/>
+	</columnHeader>
+	<detail>
+		<band height="593" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="52" uuid="18875cc6-a4c9-4944-a0d3-17c5ef4f48a9"/>
+				<textElement textAlignment="Justified">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[          A Amazônia Azul Tecnologias de Defesa SA participa que todos os empregados estão sujeitos ao Regulamento de Pessoal da AMAZUL e a Lei nº 12.813, de 16 de Maio de 2013, denominada lLei de Conflito de Interesses.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="52" width="555" height="532" uuid="0ea05f87-6d39-4d6f-a563-e119a6902020"/>
+				<textElement textAlignment="Justified">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[De acordo com o item 3 do artigo 42 do Regulamento de Pessoal da AMAZUL:
+“Ao empregado é proibido, além do previsto na legislação trabalhista:
+Trabalhar em outra empresa ou atividade autônoma, em horário coincidente com o horário a que estiver sujeito por força do contrato de trabalho, ou fazer parte, como sócio, dirigente, ou exercer qualquer atividade em empresas que trabalhem para a AMAZUL, ou que com ela transacionem;”
+
+	De acordo com o artigo 5º da Lei nº 12.813, as seguintes situações constituem conflito de interesses envolvendo agentes públicos:
+	I – divulgar ou fazer uso de informação privilegiada, em proveito próprio ou de terceiro, obtida em razão das atividades exercidas;
+	II – exercer atividade que implique a prestação de serviços ou a manutenção de relação de negócio com pessoa física ou jurídica que tenha interesse em decisão do agente público ou de colegiado do qual este participe;
+	III – exercer, direta ou indiretamente, atividade que em razão da sua natureza seja incompatível com as atribuições do cargo ou emprego, considerando-se como tal, inclusive, a atividade desenvolvida em áreas ou matérias correlatas;
+	IV – atuar, ainda que informalmente, como procurador, consultor, assessor ou intermediário de interesses privados nos órgãos ou entidades da administração pública direta ou indireta de qualquer dos Poderes da União, dos Estados, do Distrito Federal e dos Municípios;
+	V – praticar ato em benefício de interesse de pessoa jurídica de que participe o agente público, seu cônjuge, companheiro ou parentes, consanguíneos ou afins, em linha reta ou colateral, até o terceiro grau, e que possa ser por ele beneficiada ou influir em seus atos de gestão;
+	VI – receber presente de que tenha interesse em decisão do agente público ou de colegiado do qual este participe fora dos limites e condições estabelecidos em regulamento; e
+	VII – prestar serviços, ainda que eventuais, a empresa cuja atividade seja controlada, fiscalizada ou regulada pelo ente ao qual o agente público está vinculado.
+	Segundo a referida legislação, o conflito de interesses ocorre independente da existência de lesão ao patrimônio público ou de recebimento de vantagem financeira pelo agente público ou terceiro. Basta que o confronto existente entre o interesse público e privado traga prejuízo para o interesse coletivo ou influencie, de maneira imprópria, o desempenho da função pública.
+	Pelo exposto, o presente documento visa dar ciência da legislação relativa a conflito de interesses e ressaltar que os agentes públicos devem agir de modo a prevenir ou impedir situações que gerem conflito de interesses, inclusive que envolvam seus familiares ou pessoas próximas, resguardando, ainda, todas as informações privilegiadas recebidas em decorrência das atividades exercidas no cargo público.
+	]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="588" width="100" height="1" uuid="8a16b49b-ba36-428b-8af5-68f4f23153a5"/>
+			</break>
+		</band>
+		<band height="442">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="82" uuid="a27468b4-2a6c-4976-a9d8-807eef072830"/>
+				<textElement textAlignment="Justified">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[	Em casos de dúvida acerca de situação que possa ser caracterizada como conflito de interesses, os superiores imediatos ou mediatos deverão ser comunicados.
+	Tendo em vista as atividades exercidas por Vsa., solicita-se ratificação aos termos da legislação apresentada, através da seguinte declaração:
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="82" width="555" height="20" uuid="d0e581fd-a1a9-405a-92c6-224a89b0147d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DECLARAÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="122" width="555" height="202" uuid="eb0227b9-919c-4837-aa04-b17e1b8a0d89"/>
+				<textElement textAlignment="Justified">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[	Estou ciente acerca das situações que constituem conflito de interesses, de acordo com o disposto na Lei nº 12.813, de 16 de maio de 2013.
+	Declaro que não incorro em situações que possam afrontar a referida legislação;
+	Comprometo-me a agir de modo a prevenir ou impedir situações que possam gerar conflito de interesses;
+	Em havendo dúvida acerca de situação passível de ser caracterizada como conflito de interesses, comprometo-me a comunicar aos superiores, a fim de que seja sanada.
+
+	Recebi o documento em duas vias, sendo uma para devolução à AMAZUL, devidamente assinada, e outra para arquivo pessoal.
+
+São Paulo, ____ de ______________  de 2020
+]]></text>
+			</staticText>
+			<line>
+				<reportElement x="259" y="393" width="280" height="1" uuid="a7040b35-dfd9-4483-a993-2cb05de36351"/>
+			</line>
+			<staticText>
+				<reportElement x="259" y="394" width="35" height="20" uuid="3e20bd45-b84c-43d3-a96e-3f79a3540fba"/>
+				<text><![CDATA[Nome:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="294" y="394" width="245" height="20" uuid="980224ba-cf8e-46ae-aae2-71b279affd18"/>
+				<textFieldExpression><![CDATA[$F{empregado_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="259" y="414" width="35" height="20" uuid="0607d567-3188-49c6-b1d7-d9cfb8f11a87"/>
+				<text><![CDATA[CPF:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="294" y="414" width="245" height="20" uuid="67f6e8fd-f47a-47b3-95cd-07ec52bdc44d"/>
+				<textFieldExpression><![CDATA[$F{empregado_cpf}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

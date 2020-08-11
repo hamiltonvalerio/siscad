@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="acumulacao" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2a16ebe5-8790-4931-8ff6-9d043f0c6da9">
+	<property name="ireport.zoom" value="1.7715610000000064"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="EMPREGADO_ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[124]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LOGO" class="java.io.InputStream" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT
+     empregado."id" AS empregado_id,
+     empregado."nome" AS empregado_nome,
+     cs_cargos."titulo" AS cs_cargos_titulo,
+     cs_cargos."empregado_id" AS cs_cargos_empregado_id,
+     adm_unidades."nome" AS adm_unidades_nome,
+     adm_unidades."empregado_id" AS adm_unidades_empregado_id,
+     adm_hieraquias."estrutura" AS adm_hieraquias_estrutura,
+     adm_hieraquias."nome" AS adm_hieraquias_nome,
+     adm_hieraquias."empregado_id" AS adm_hieraquias_empregado_id
+FROM
+     "public"."empregado" empregado INNER JOIN "public"."cs_cargos" cs_cargos ON empregado."id" = cs_cargos."empregado_id"
+     INNER JOIN "public"."adm_unidades" adm_unidades ON empregado."id" = adm_unidades."empregado_id"
+     INNER JOIN "public"."adm_hieraquias" adm_hieraquias ON empregado."id" = adm_hieraquias."empregado_id"
+WHERE empregado."id" = $P{EMPREGADO_ID}]]>
+	</queryString>
+	<field name="empregado_id" class="java.lang.Long"/>
+	<field name="empregado_nome" class="java.lang.String"/>
+	<field name="cs_cargos_titulo" class="java.lang.String"/>
+	<field name="cs_cargos_empregado_id" class="java.lang.Long"/>
+	<field name="adm_unidades_nome" class="java.lang.String"/>
+	<field name="adm_unidades_empregado_id" class="java.lang.Long"/>
+	<field name="adm_hieraquias_estrutura" class="java.lang.String"/>
+	<field name="adm_hieraquias_nome" class="java.lang.String"/>
+	<field name="adm_hieraquias_empregado_id" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="81" splitType="Stretch">
+			<staticText>
+				<reportElement x="91" y="11" width="464" height="58" uuid="96e52fd9-0994-431f-8505-dc93259fc1fb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DECLARAÇÃO PARA FINS DE CONTROLE DE ACUMULAÇÃO DE CARGOS/EMPREGOS/PROVENTOS E/OU PENSÃO]]></text>
+			</staticText>
+			<image>
+				<reportElement x="6" y="11" width="77" height="70" uuid="768b1a67-d72b-4f70-b767-375111a3ac14"/>
+				<imageExpression><![CDATA[$P{LOGO}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="627">
+			<staticText>
+				<reportElement x="0" y="0" width="39" height="20" uuid="caf5b35d-9575-46f8-832c-bf2a35c1ecd4"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nome:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="39" y="0" width="516" height="20" uuid="fe3d488b-5aff-4a9a-a977-e32b71de59e2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{empregado_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="39" height="20" uuid="3b85ec03-fe66-4591-b5b0-f798071c475c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Cargo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="39" y="20" width="180" height="20" uuid="7c948601-b93e-4b89-ae73-d43801dc43ad"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cs_cargos_titulo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="219" y="20" width="49" height="20" uuid="f8895a15-e617-4ff6-ae7d-0547f46eed33"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Unidade:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="268" y="20" width="100" height="20" uuid="d6b19ef6-3f28-4cb3-982c-f7750f70f783"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{adm_unidades_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="368" y="20" width="32" height="20" uuid="67bfadba-2026-4968-b123-f3d3a5d2df63"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Área:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="400" y="20" width="155" height="20" uuid="3c8375c5-2269-4a92-b2fe-d58a8eb17faa"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{adm_hieraquias_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="149" height="20" uuid="1eb01c76-a5c0-4cc3-9d0c-bc4cd9a552dc"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Regime de Trabalho Semanal:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="188" y="44" width="52" height="14" uuid="eb8836e9-d5be-4e17-a43f-96fb3fced501"/>
+				<text><![CDATA[20 Horas]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="156" y="44" width="19" height="12" uuid="42f86c22-38ed-4031-9a6f-6d2a97529a38"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="309" y="44" width="19" height="12" uuid="e5f8ea52-65bc-4a81-a41c-24d5ce323700"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="341" y="44" width="52" height="14" uuid="0ff92b71-4f78-4654-a632-da9972521bd2"/>
+				<text><![CDATA[24 Horas]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="156" y="71" width="19" height="12" uuid="2ad1349a-90d5-48fd-9e50-0d3d8cbb8fa9"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="188" y="71" width="52" height="14" uuid="b06aeb12-d7b4-4168-9bd3-ccbba8a9c00a"/>
+				<text><![CDATA[36 Horas]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="471" y="44" width="19" height="12" uuid="09e5bfb0-90fd-46f9-8b36-d75f72934f53"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="503" y="44" width="52" height="14" uuid="c1bc6f37-414d-4f95-9ea9-2fd39d72f871"/>
+				<text><![CDATA[30 Horas]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="309" y="71" width="19" height="12" uuid="ef6535a3-f7d2-4a78-a640-fca5051e1903"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="341" y="71" width="52" height="14" uuid="31652f4a-56c5-4131-8105-65eed1f3a550"/>
+				<text><![CDATA[40 Horas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="163" width="555" height="18" uuid="c164ec66-6ac0-42b3-a650-7a5759f35fa3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1 – Exerce Atividade Remunerada na iniciativa privada / profissional liberal /autônomo ?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="195" width="41" height="14" uuid="a62b9409-54c3-4421-bacf-8ec3f674d1d9"/>
+				<text><![CDATA[NÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="222" width="526" height="22" uuid="7a154f04-395c-4f8f-8ed4-7f612342613a"/>
+				<text><![CDATA[SIM - CNPJ: ________________Cargo: _______________ Carga horária: _____________ hs/semana]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="10" y="222" width="19" height="12" uuid="018c26f9-bf5f-4ed3-b2d9-e39eeef52a77"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="10" y="195" width="19" height="12" uuid="720cf388-a198-467b-92fe-6a555fce665f"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="101" width="553" height="28" uuid="6e6eb52a-ca6e-48b1-8be3-236d1e0c0dca"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[DECLARO, tendo em vista no inciso XVI do artigo 37 da Constituição Federal; no art. 13 e no inciso III do art. 116 da Lei nº 8.112/90, na Lei nº 8.429/92 e na Portaria Normativa SGP Nº2/12, que na presente data:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="254" width="543" height="20" uuid="b7a501bd-bfcb-41c2-a725-5ae2c4cb06ba"/>
+				<text><![CDATA[Empresa: ________________________________________________________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="274" width="543" height="20" uuid="447057b1-0e3c-4e72-b28f-7170d0177200"/>
+				<text><![CDATA[Importante: ANEXAR DECLARAÇÃO DA EMPRESA OU DOCUMENTO DE DESLIGAMENTO.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="339" width="41" height="14" uuid="e0e76119-e138-47a9-b0fa-358ff757542b"/>
+				<text><![CDATA[NÃO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="10" y="339" width="19" height="12" uuid="4346f57a-989f-4fcb-979b-63b24f3a8d27"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="306" width="555" height="18" uuid="917557f7-17a0-43af-b6ec-b325cf7621d0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[2 – Está em gozo do benefício do seguro-desemprego ou já dei entrada no requerimento do mesmo ?]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="10" y="364" width="19" height="12" uuid="b9f6b719-b660-48d5-8d3c-731c059cb88b"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="31" y="364" width="41" height="14" uuid="a1a803a6-0044-4460-b939-e69b1f82a8ca"/>
+				<text><![CDATA[SIM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="400" width="555" height="18" uuid="383c61ea-aac2-433f-8ddd-0529a6b57709"/>
+				<textElement textAlignment="Justified" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[3 – Participa de Sociedade Privada ?]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="10" y="433" width="19" height="12" uuid="ded14ceb-31d0-4c87-867a-85605d408c0e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="10" y="459" width="19" height="12" uuid="8b16c69f-4678-438c-93a0-a1fd66b57cf9"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="31" y="459" width="41" height="14" uuid="9008c095-f5e3-455e-8b9c-97a85b190ef9"/>
+				<text><![CDATA[SIM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="433" width="41" height="14" uuid="f94c76b4-b052-43d3-ab41-0445b2d8db18"/>
+				<text><![CDATA[NÃO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="12" y="568" width="19" height="12" uuid="44b6d2aa-995e-4a1e-b4a3-ad92e4b3d284"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="488" width="555" height="42" uuid="4758e47f-6ef7-4fb3-9b25-6e4388aed01e"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[3.1 - Em caso afirmativo, exerce gerência ou administração de sociedade privada, personificada ou não personificada, ou comércio, exceto na qualidade de acionista, cotista ou comanditário (Inciso X do artigo 117, da Leinº 8.112/90) ?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="542" width="41" height="14" uuid="e7e858f4-3d1a-47b5-a630-93486c2da2fb"/>
+				<text><![CDATA[NÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="568" width="41" height="14" uuid="7eefa5bc-2da7-4b92-bc3d-6b2c2a44469e"/>
+				<text><![CDATA[SIM]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="12" y="542" width="19" height="12" uuid="c5578b34-6366-4dca-8ef3-3731ded1ed29"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="4" y="595" width="543" height="20" uuid="0f75fb56-59fa-4fc1-a540-01712c86b700"/>
+				<text><![CDATA[Importante: ANEXAR CÓPIA DO CONTRATO SOCIAL]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="620" width="100" height="1" uuid="270130f8-16d2-446c-9306-e5ede67aa230"/>
+			</break>
+		</band>
+		<band height="716">
+			<staticText>
+				<reportElement x="0" y="498" width="555" height="46" uuid="1c480f7f-06c2-4053-a646-16e298c93d4c"/>
+				<textElement textAlignment="Justified" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[7 – Acumula outro Cargo/Emprego/Função em Órgão Público federal, estadual ou municipal, na administração
+direta ou indireta, incluindo autarquias, fundações, empresas públicas, sociedades de economia mista, suas
+subsidiárias, e sociedades controladas, direta ou indiretamente, pelo Poder Público ?]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="4" y="584" width="19" height="12" uuid="6699e0b7-1731-4817-8ccf-f7a677599bc0"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="25" y="557" width="41" height="14" uuid="37b0ba2c-6efb-4b39-9907-573507751a4b"/>
+				<text><![CDATA[NÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="584" width="528" height="23" uuid="04c3c011-a5b8-4bbd-a85d-615b21919f25"/>
+				<text><![CDATA[SIM - Cargo: _________________________________________ Órgão: ___________________________ UF: ____]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="4" y="557" width="19" height="12" uuid="fba7e2b0-bcd6-4aee-8eeb-4be25aaf393b"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="4" y="607" width="549" height="17" uuid="258edd2b-0945-4171-9f46-e6b86c9d7f9f"/>
+				<text><![CDATA[Nível: __________________________ Carga horária: __________hs/semana Área de Atuação: ____________________
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="624" width="303" height="17" uuid="1bfceeff-f5c2-446c-a45d-82883926d5aa"/>
+				<text><![CDATA[Data de ingresso: _____/______/_________ Auxílio-alimentação:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="328" y="488" width="41" height="14" uuid="fe5dc899-f027-4d5c-bcad-22e8ec70de2a"/>
+				<text><![CDATA[SIM	]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="307" y="626" width="19" height="12" uuid="91259207-a17a-4c66-be8b-a9625cf44e65"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="373" y="626" width="19" height="12" uuid="6706e832-c0f9-439b-bb29-ca1af67ecfd3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="394" y="488" width="41" height="14" uuid="1b73062a-9234-49a0-8a80-2601ba317cfb"/>
+				<text><![CDATA[NÃO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="6" y="355" width="19" height="12" uuid="421c0e95-6996-4446-a386-394bf7228c8c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="27" y="355" width="41" height="14" uuid="c73ca3ba-5b1a-4f4c-8f1b-016efb89df0b"/>
+				<text><![CDATA[NÃO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="6" y="382" width="19" height="12" uuid="44283b53-a6d8-40bf-a951-ae43d0e5af6a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="289" width="555" height="53" uuid="ce56e8da-4003-4e73-a053-2a89225a51f0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[6 – É Aposentado(a) em outro cargo/função/emprego PÚBLICO e/ou pensionista, nos termos do Art. 118, § 3º
+da Lei nº 8112/90 - “Considera-se acumulação proibida a percepção de vencimento de cargo ou emprego
+público efetivo com proventos da inatividade, salvo quando os cargos de que decorram essas remunerações
+forem acumuláveis na atividade” ?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="382" width="528" height="23" uuid="d6aeea7b-9cbe-436a-90b9-93a9faf0c23c"/>
+				<text><![CDATA[SIM Cargo: ______________________________________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="405" width="549" height="57" uuid="3f2d6405-67bf-4b2c-9dcf-97042eefb700"/>
+				<text><![CDATA[Nível: _______________ Carga horária: __________hs/semana Área de Atuação: ______________________________
+Órgão: _______________________________________________________________ UF: _______________________
+Ato Legal: _____________________________________________________________ Vigência: _____/_____/_______
+Base Legal: ______________________________________________________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="472" width="547" height="26" uuid="9a56b258-2aa5-4d2f-8a4e-f404428d6aae"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Importante: ANEXAR CÓPIA DA PORTARIA DE APOSENTADORIA E EXTRATO DE PAGAMENTO DE BENEFÍCIO OU
+COMPROVANTE DE RECEBIMENTO DE PENSÃO.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="181" width="41" height="14" uuid="49fd2749-71e3-4f16-a8ff-a95e3fba9498"/>
+				<text><![CDATA[NÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="149" width="555" height="18" uuid="bd4a6a26-8f45-4731-b8b8-36f759c49e4a"/>
+				<textElement textAlignment="Justified" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[5 – É Beneficiário(a) de Pensão Civil e está ciente do disposto ?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="208" width="526" height="27" uuid="cda1f093-2fe4-4c68-adcb-63309b55f09c"/>
+				<text><![CDATA[SIM - Conforme o disposto na Portaria Normativa SRH nº 2/11, o beneficiário de pensão civil que for
+nomeado para cargo público de provimento efetivo, deverá, no ato da posse, prestar as seguintes informações: ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="10" y="208" width="19" height="12" uuid="70533d0f-c78e-4f7f-9b31-7b7b0dbc2524"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="10" y="181" width="19" height="12" uuid="a8510c4c-51d4-44fc-920e-be3bd85fe626"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="31" y="235" width="26" height="20" uuid="56dcc425-dedd-48ed-9874-10c1c3e4d305"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Tipo:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="58" y="241" width="19" height="12" uuid="ee5ff8bc-1636-47ce-8253-34d35b3384a8"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="154" y="241" width="19" height="12" uuid="0fa06664-093b-40b1-96c6-2f4bb22fd555"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="92" y="235" width="59" height="20" uuid="cf857e9e-6ff0-4dc5-b64d-16b601a9e295"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Temporária:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="235" width="377" height="20" uuid="8c582fe5-4ff1-404d-9ebd-5e3f0086a40a"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Vitalícia Grau de parentesco: _____________ Concessão: ____/____/____]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="255" width="526" height="20" uuid="84a5f916-c6de-4d4d-a4a1-8d2a74641a9f"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Dependência econômica comprovada na data do óbito do instituidor: ____________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="10" width="555" height="42" uuid="9d651ec1-9149-40b7-983d-731057e69c07"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[4 – Foi contratado(a), nos últimos 24 (vinte e quatro) meses, com fundamento na Lei nº 8.745/93 que dispõe
+sobre a Contratação por Tempo Determinado para atender a necessidade temporária de excepcional interesse
+público, nos termos do inciso IX do art. 37 da Constituição Federal ?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="35" y="86" width="41" height="14" uuid="2cd8dab4-f09c-4594-8c59-45e9b44bd65d"/>
+				<text><![CDATA[SIM]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="14" y="60" width="19" height="12" uuid="e001ad3c-1ac2-4a65-8877-99b014683c8e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="35" y="60" width="41" height="14" uuid="ada958b1-dfe9-4fef-9ce6-c7d21e7c37a3"/>
+				<text><![CDATA[NÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="113" width="543" height="20" uuid="647f59f7-876e-447e-aec3-4ce72a27f73c"/>
+				<text><![CDATA[Importante: ANEXAR CÓPIA DO CONTRATO DE PRESTAÇÃO DE SERVIÇOS]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="14" y="86" width="19" height="12" uuid="a573ba96-5f05-4767-bee8-955a36377cc6"/>
+			</rectangle>
+			<break>
+				<reportElement x="0" y="699" width="553" height="1" uuid="03a9cd9a-fef4-4dac-a0a7-db393e98eea0"/>
+			</break>
+		</band>
+		<band height="331">
+			<staticText>
+				<reportElement x="0" y="1" width="555" height="28" uuid="693c7284-3e41-4a21-aaf1-3f8c819ac316"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[	O inciso XVI do Art. 37 da CF dispõe que “é vedada a acumulação remunerada de cargos públicos, exceto quando houver compatibilidade de horários”, observado em qualquer caso o disposto no inciso XI:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="29" width="555" height="52" uuid="91b6dd70-bca0-45b8-9ba9-725d7cc3044c"/>
+				<text><![CDATA[	a) a de dois cargos de professor;
+	b) a de um cargo de professor com outro técnico ou científico;
+	c) a de dois cargos ou empregos privativos de profissionais de saúde, com profissões
+	regulamentadas.”]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="81" width="555" height="26" uuid="6588affa-5514-4b34-b9af-8ae68668799e"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[	Importante: No caso de acumulação não permitida, sua contratação somente será efetuada se V.Sa. apresentar documento comprobatório de desligamento do outro Órgão Público.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="107" width="555" height="54" uuid="66999a21-2a4a-4341-aea8-c66b2bbb3523"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[	Conforme disposto na Portaria Normativa nº 2, de 12/03/2012, do Ministério do Planejamento, Orçamento e Gestão, estou ciente que deverei fornecer cópia dos comprovantes de rendimentos (contracheque) de todos os vínculos, no ato da posse/admissão/contratação; semestralmente, nos meses de abril e outubro, e sempre que houver qualquer modificação, à Coordenadoria de Relações Trabalhistas da AMAZUL.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="161" width="555" height="70" uuid="7b408b86-e2f8-4196-87d6-822267442779"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[	O cumprimento do disposto nesta Portaria Normativa é condição essencial e indispensável para a posse, o exercício e a permanência do empregado no cargo efetivo, em comissão ou na função comissionada, bem como para a percepção da pensão civil a que faça jus.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="231" width="555" height="27" uuid="0a5ee5b0-9e1f-442d-9547-65e56013b364"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[	Estou ciente, ainda, que, caso ocorra qualquer alteração no conteúdo deste formulário, deverei informar imediatamente à Administração.]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="216">
+			<staticText>
+				<reportElement x="0" y="72" width="56" height="20" uuid="be3ad6fd-813c-4d7c-a28d-01d6c34cddc7"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[São Paulo,]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="56" y="72" width="135" height="20" uuid="989be273-3349-45d6-b791-320aaaa7423b"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="149" y="149" width="251" height="1" uuid="4bfd036f-a18e-48ba-8c6c-308c6fab7868"/>
+			</line>
+			<staticText>
+				<reportElement x="248" y="150" width="93" height="14" uuid="505e9e61-ede6-4741-bef9-aa3945aa9488"/>
+				<text><![CDATA[Assinatura]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+</jasperReport>

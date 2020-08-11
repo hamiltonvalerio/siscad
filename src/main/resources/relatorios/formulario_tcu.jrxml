@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="formulario_tcu" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2d6be353-b395-44ad-b761-220b7a92998c">
+	<property name="ireport.zoom" value="1.7715610000000064"/>
+	<property name="ireport.x" value="30"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="Table Dataset 1" uuid="67de01c3-e257-446b-998d-622578e0bbc1"/>
+	<parameter name="EMPREGADO_ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[124]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LOGO" class="java.io.InputStream" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT
+     empregado."id" AS empregado_id,
+     empregado."cpf" AS empregado_cpf,
+     empregado."email" AS empregado_email,
+     empregado."nome" AS empregado_nome,
+     empregado."adm_unidade" AS empregado_adm_unidade,
+     empregado."datalt" AS empregado_datalt,
+     empregado."usualt" AS empregado_usualt,
+     empregado."datanasc" AS empregado_datanasc,
+     empregado."ufnasc" AS empregado_ufnasc,
+     empregado."munnasc" AS empregado_munnasc,
+     empregado."estadocivil" AS empregado_estadocivil,
+     empregado."rgemp" AS empregado_rgemp,
+     empregado."nomesocial" AS empregado_nomesocial,
+     empregado."sexoemp" AS empregado_sexoemp,
+     empregado."racacor" AS empregado_racacor,
+     empregado."tpsang" AS empregado_tpsang,
+     empregado."aposentado" AS empregado_aposentado,
+     empregado."fatorrh" AS empregado_fatorrh,
+     empregado."nbap" AS empregado_nbap,
+     empregado."cepres" AS empregado_cepres,
+     empregado."telcel" AS empregado_telcel,
+     empregado."telrec" AS empregado_telrec,
+     empregado."telres" AS empregado_telres,
+     empregado."bairrores" AS empregado_bairrores,
+     empregado."enderecores" AS empregado_enderecores,
+     empregado."ufres" AS empregado_ufres,
+     empregado."munres" AS empregado_munres,
+     empregado."estados" AS empregado_estados,
+     empregado."estadosres" AS empregado_estadosres,
+     empregado."digagencia" AS empregado_digagencia,
+     empregado."digconta" AS empregado_digconta,
+     empregado."numagencia" AS empregado_numagencia,
+     empregado."numconta" AS empregado_numconta,
+     empregado."bairroagencia" AS empregado_bairroagencia,
+     empregado."endagencia" AS empregado_endagencia,
+     empregado."munag" AS empregado_munag,
+     empregado."numendagencia" AS empregado_numendagencia,
+     empregado."ufag" AS empregado_ufag,
+     empregado."nomeagencia" AS empregado_nomeagencia,
+     empregado."cepagencia" AS empregado_cepagencia,
+     empregado."numerores" AS empregado_numerores,
+     empregado."nomeestadosnasc" AS empregado_nomeestadosnasc,
+     empregado."nomemunnasc" AS empregado_nomemunnasc,
+     empregado."nomeestadosres" AS empregado_nomeestadosres,
+     empregado."nomemunag" AS empregado_nomemunag,
+     empregado."nomemunres" AS empregado_nomemunres,
+     empregado."nomeufag" AS empregado_nomeufag,
+     empregado."rgemissorempnovo" AS empregado_rgemissorempnovo,
+     empregado."rgemissoremp" AS empregado_rgemissoremp,
+     empregado."religiao" AS empregado_religiao,
+     empregado."naturezaap" AS empregado_naturezaap,
+     empregado."nivelescolaridade" AS empregado_nivelescolaridade,
+     empregado."bancocontaemp" AS empregado_bancocontaemp,
+     empregado."banconovoemp" AS empregado_banconovoemp,
+     empregado."nomeestadocivil" AS empregado_nomeestadocivil,
+     empregado."nomereligiao" AS empregado_nomereligiao,
+     empregado."nomeracacor" AS empregado_nomeracacor,
+     empregado."nometpsang" AS empregado_nometpsang,
+     empregado."nomenaturezaap" AS empregado_nomenaturezaap,
+     empregado."nomenivelescolaridade" AS empregado_nomenivelescolaridade,
+     empregado."finalizadoexterno" AS empregado_finalizadoexterno,
+     cs_cargos."id" AS cs_cargos_id,
+     cs_cargos."handle" AS cs_cargos_handle,
+     cs_cargos."titulo" AS cs_cargos_titulo,
+     cs_cargos."empregado_id" AS cs_cargos_empregado_id,
+     adm_unidades."id" AS adm_unidades_id,
+     adm_unidades."handle" AS adm_unidades_handle,
+     adm_unidades."nome" AS adm_unidades_nome,
+     adm_unidades."empregado_id" AS adm_unidades_empregado_id
+FROM
+     "public"."empregado" empregado INNER JOIN "public"."cs_cargos" cs_cargos ON empregado."id" = cs_cargos."empregado_id"
+     INNER JOIN "public"."adm_unidades" adm_unidades ON empregado."id" = adm_unidades."empregado_id"
+WHERE
+     empregado."id" = $P{EMPREGADO_ID}]]>
+	</queryString>
+	<field name="empregado_id" class="java.lang.Long"/>
+	<field name="empregado_cpf" class="java.lang.String"/>
+	<field name="empregado_email" class="java.lang.String"/>
+	<field name="empregado_nome" class="java.lang.String"/>
+	<field name="empregado_adm_unidade" class="java.lang.Object"/>
+	<field name="empregado_datalt" class="java.sql.Timestamp"/>
+	<field name="empregado_usualt" class="java.lang.String"/>
+	<field name="empregado_datanasc" class="java.sql.Timestamp"/>
+	<field name="empregado_ufnasc" class="java.lang.String"/>
+	<field name="empregado_munnasc" class="java.lang.String"/>
+	<field name="empregado_estadocivil" class="java.lang.String"/>
+	<field name="empregado_rgemp" class="java.lang.String"/>
+	<field name="empregado_nomesocial" class="java.lang.String"/>
+	<field name="empregado_sexoemp" class="java.lang.String"/>
+	<field name="empregado_racacor" class="java.lang.String"/>
+	<field name="empregado_tpsang" class="java.lang.String"/>
+	<field name="empregado_aposentado" class="java.lang.String"/>
+	<field name="empregado_fatorrh" class="java.lang.String"/>
+	<field name="empregado_nbap" class="java.lang.String"/>
+	<field name="empregado_cepres" class="java.lang.String"/>
+	<field name="empregado_telcel" class="java.lang.String"/>
+	<field name="empregado_telrec" class="java.lang.String"/>
+	<field name="empregado_telres" class="java.lang.String"/>
+	<field name="empregado_bairrores" class="java.lang.String"/>
+	<field name="empregado_enderecores" class="java.lang.String"/>
+	<field name="empregado_ufres" class="java.lang.String"/>
+	<field name="empregado_munres" class="java.lang.String"/>
+	<field name="empregado_estados" class="java.lang.String"/>
+	<field name="empregado_estadosres" class="java.lang.Integer"/>
+	<field name="empregado_digagencia" class="java.lang.String"/>
+	<field name="empregado_digconta" class="java.lang.String"/>
+	<field name="empregado_numagencia" class="java.lang.String"/>
+	<field name="empregado_numconta" class="java.lang.String"/>
+	<field name="empregado_bairroagencia" class="java.lang.String"/>
+	<field name="empregado_endagencia" class="java.lang.String"/>
+	<field name="empregado_munag" class="java.lang.Integer"/>
+	<field name="empregado_numendagencia" class="java.lang.Integer"/>
+	<field name="empregado_ufag" class="java.lang.Integer"/>
+	<field name="empregado_nomeagencia" class="java.lang.String"/>
+	<field name="empregado_cepagencia" class="java.lang.String"/>
+	<field name="empregado_numerores" class="java.lang.Integer"/>
+	<field name="empregado_nomeestadosnasc" class="java.lang.String"/>
+	<field name="empregado_nomemunnasc" class="java.lang.String"/>
+	<field name="empregado_nomeestadosres" class="java.lang.String"/>
+	<field name="empregado_nomemunag" class="java.lang.String"/>
+	<field name="empregado_nomemunres" class="java.lang.String"/>
+	<field name="empregado_nomeufag" class="java.lang.String"/>
+	<field name="empregado_rgemissorempnovo" class="java.lang.String"/>
+	<field name="empregado_rgemissoremp" class="java.lang.Integer"/>
+	<field name="empregado_religiao" class="java.lang.Integer"/>
+	<field name="empregado_naturezaap" class="java.lang.Integer"/>
+	<field name="empregado_nivelescolaridade" class="java.lang.Integer"/>
+	<field name="empregado_bancocontaemp" class="java.lang.Integer"/>
+	<field name="empregado_banconovoemp" class="java.lang.String"/>
+	<field name="empregado_nomeestadocivil" class="java.lang.String"/>
+	<field name="empregado_nomereligiao" class="java.lang.String"/>
+	<field name="empregado_nomeracacor" class="java.lang.String"/>
+	<field name="empregado_nometpsang" class="java.lang.String"/>
+	<field name="empregado_nomenaturezaap" class="java.lang.String"/>
+	<field name="empregado_nomenivelescolaridade" class="java.lang.String"/>
+	<field name="empregado_finalizadoexterno" class="java.lang.Boolean"/>
+	<field name="cs_cargos_id" class="java.lang.Long"/>
+	<field name="cs_cargos_handle" class="java.lang.Long"/>
+	<field name="cs_cargos_titulo" class="java.lang.String"/>
+	<field name="cs_cargos_empregado_id" class="java.lang.Long"/>
+	<field name="adm_unidades_id" class="java.lang.Long"/>
+	<field name="adm_unidades_handle" class="java.lang.Long"/>
+	<field name="adm_unidades_nome" class="java.lang.String"/>
+	<field name="adm_unidades_empregado_id" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="92" y="0" width="327" height="20" uuid="e23a6ab3-3a8c-479a-93a5-dc8af224f9e6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TRIBUNAL DE CONTAS DA UNIÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="31" width="463" height="18" uuid="ad797de7-87fe-4e05-b395-e1386530beb1"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ANEXO II À INSTRUÇÃO NORMATIVA-TCU Nº 67, DE 6 DE JULHO DE 2011]]></text>
+			</staticText>
+			<image>
+				<reportElement x="7" y="7" width="70" height="63" uuid="a5479c6b-46be-413d-897e-013196e4328d"/>
+				<imageExpression><![CDATA[$P{LOGO}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="36" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="35" uuid="ba7ae15c-ca4f-4dd5-a651-71947188f9f4"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="35" uuid="d3ad3ed2-9743-4f3a-a440-5a5b617196e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FORMULÁRIO DE AUTORIZAÇÃO DE ACESSO AOS DADOS DE BENS E RENDAS DAS DECLARAÇÕES DE
+AJUSTE ANUAL DO IMPOSTO DE RENDA PESSOA FÍSICA]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="120" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="11" width="555" height="20" uuid="36aad770-afc9-4ab0-ac7a-ca4c604ee987"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="11" width="555" height="20" uuid="c79312ff-e1cc-4acd-992e-e50267fbbec2"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[ DADOS PESSOAIS]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="31" width="113" height="20" uuid="06d900bf-d588-47b9-aec4-41f03bed2ec5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="31" width="113" height="20" uuid="89ac6874-cbf0-4280-97f7-47e9e04dd518"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[ MATRÍCULA SIAPE Nº]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="113" y="31" width="190" height="20" uuid="990f82cf-4494-4539-b2fa-5f53a45f00b5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="303" y="31" width="45" height="20" uuid="499a6bee-0564-49d7-81d7-86a62f295dab"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="303" y="31" width="45" height="20" uuid="84df4542-77d3-4a4e-a59a-366cc85aa6f3"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[ CPF Nº]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="348" y="31" width="207" height="20" uuid="2b10da4b-df2d-4bd7-bf5f-e27f09b14aaf"/>
+			</rectangle>
+			<textField>
+				<reportElement x="351" y="31" width="204" height="20" uuid="6b172654-b482-45a6-8cbe-8f69b7fe9d6a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[ $F{empregado_cpf}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="51" width="44" height="20" uuid="4ac54530-a5d7-4b5a-bc6c-1ae4c17503cc"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="51" width="44" height="20" uuid="aa2e9af9-3ed6-488d-9c49-55713950f85d"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[ NOME]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="44" y="51" width="511" height="20" uuid="954a65b9-fe2c-4c47-bb74-2909ac7c7fe0"/>
+			</rectangle>
+			<textField>
+				<reportElement x="47" y="51" width="508" height="20" uuid="19e78d0e-f8cf-498b-af4e-fe5a51f5bd13"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{empregado_nome}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="71" width="92" height="20" uuid="5a207129-21fb-41d0-bdc1-3f29bb927918"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="71" width="92" height="20" uuid="38c7c4c6-0d43-4001-a25c-2a7d33b2889a"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[ CARGO/FUNÇÃO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="92" y="71" width="303" height="20" uuid="d5ce3eb5-fe8c-4e7e-ada1-255db899af50"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="395" y="71" width="46" height="20" uuid="4eb25c19-e831-4623-a4ac-c0977d79f721"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="395" y="71" width="46" height="20" uuid="fcf2b237-ccc5-477e-ac19-16ac3e765ec4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[CÓDIGO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="95" y="71" width="300" height="20" uuid="4f900f24-6a4e-4375-92be-7632e024935d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cs_cargos_titulo}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="441" y="71" width="114" height="20" uuid="9b498ddf-5455-4935-ad00-61c22e6a6dbc"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="91" width="128" height="20" uuid="ab507df5-544c-4e6f-b20e-dd86493b56fc"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="91" width="128" height="20" uuid="c7146c70-0de5-425a-9c77-39d954135d2c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[ UNIDADE DE LOTAÇÃO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="128" y="91" width="267" height="20" uuid="4e722b35-195f-45e2-b6a8-73370de47093"/>
+			</rectangle>
+			<textField>
+				<reportElement x="130" y="91" width="265" height="20" uuid="15345b8e-6bff-411e-a2dd-20db997fcd1e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{adm_unidades_nome}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="395" y="91" width="46" height="20" uuid="5e7a07f5-54e2-4577-9f69-9e17c98c4f61"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="395" y="91" width="46" height="20" uuid="a09b1f83-8d1a-47dd-a0c0-3c64d9800cd7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[RAMAL]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="441" y="91" width="114" height="20" uuid="208cfce5-b8cf-4bab-be60-680489dbe355"/>
+			</rectangle>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="107" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#CCCCCC" uuid="1ca37022-9892-405d-921b-269046ef8a07"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="f592c881-7485-4151-8054-388009b6aa73"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[AUTORIZAÇÃO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="20" width="555" height="85" uuid="1fa58476-17c3-47ae-b21b-69726e91987c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="20" width="548" height="85" uuid="b07c7b2d-85f3-4e57-8d68-3ab75cb93ecd"/>
+				<textElement textAlignment="Justified">
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[Autorizo, para fins de cumprimento da exigência contida no art. 13 da Lei 8.429, de 1992, e no art. 1º da Lei 8.730, de 1993, e enquanto sujeito ao cumprimento das obrigações previstas nas Leis 8.429, de 1992, e 8.730, de 1993, o Tribunal de Contas da União - TCU a ter acesso aos dados de Bens e Rendas exigidos nas mencionadas Leis, das minhas Declarações de Ajuste Anual do Imposto de Renda Pessoa Física e das respectivas retificações apresentadas à Secretaria da Receita Federal do Brasil.]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="92" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="13" width="276" height="69" uuid="e4bb0968-a845-4188-9157-2f95876fb1d0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="276" y="13" width="279" height="69" uuid="bf2a4c3e-31f3-4522-820b-e64c7b36cd1d"/>
+			</rectangle>
+			<line>
+				<reportElement x="30" y="46" width="215" height="1" uuid="1eb942ca-cd8d-47ff-8cba-d3b7d90ba32d"/>
+			</line>
+			<staticText>
+				<reportElement x="30" y="48" width="215" height="20" uuid="a85cf97f-a5df-411c-bb78-10d9acbe0622"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[LOCAL E DATA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="313" y="48" width="215" height="15" uuid="2314c836-6282-4baf-bfdd-acd1d57262ea"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[ASSINATURA]]></text>
+			</staticText>
+			<line>
+				<reportElement x="313" y="46" width="215" height="1" uuid="a2ef879c-ae0f-4b83-bcb7-13d8c29ce481"/>
+			</line>
+			<staticText>
+				<reportElement x="313" y="63" width="215" height="15" uuid="19b2246a-ac7b-45f2-835b-add930ed0083"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[AUTORIDADE/SERVIDOR]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

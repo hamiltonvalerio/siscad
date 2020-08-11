@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title>Home</title>
+<link rel="stylesheet" href="/css/mensagensdealerta.css">
+<style>
+fieldset.scheduler-border {
+	border: 1px groove #ddd !important;
+	padding: 0 1.4em 1.4em 1.4em !important;
+	margin: 0 0 1.5em 0 !important;
+	-webkit-box-shadow: 0px 0px 0px 0px #000;
+	box-shadow: 0px 0px 0px 0px #000;
+}
+
+legend.scheduler-border {
+	width: inherit; /* Or auto */
+	padding: 0; /* To give a bit of padding on the left and right */
+	border-bottom: none;
+}
+</style>
+
+</head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+		<div class="container">
+			<div class="form-row">
+				<div class="col-12">
+					<div sec:authorize="hasAnyAuthority('ADMIN','EXTERNO','ADMIN_RH')">
+						<fieldset class="scheduler-border">
+							<legend class="scheduler-border"><b>DOCUMENTOS NECESS&Aacute;RIOS PARA ADMISS&Atilde;O - ORIGINAIS E C&Oacute;PIAS</b></legend>
+							<table class="table">
+
+								<tbody>
+									<tr>
+										<th scope="row">1</th>
+										<td colspan="2">02 fotos 3 x 4, recentes coloridas e
+											iguais</td>
+									</tr>
+									<tr>
+										<th scope="row">2</th>
+										<td colspan="2">C&eacute;dula de Identidade</td>
+									</tr>
+									<tr>
+										<th scope="row">3</th>
+										<td colspan="2">Carteira de Trabalho e Previd&ecirc;ncia Social (CTPS) c&oacute;pia da p&aacute;gina de identifica&ccedil;&atilde;o frente e verso</td>
+									</tr>
+									<tr>
+										<th scope="row">4</th>
+										<td colspan="2">Cadastro de Pessoa F&iacute;sica - CPF - Minist&eacute;rio da Fazenda</td>
+									</tr>
+									<tr>
+										<th scope="row">5</th>
+										<td colspan="2">Comprovante do registro no &oacute;rg&atilde;o de classe e de regularidade, OAB, CREA, CRC, CRA, quando for exigido.</td>
+									</tr>
+									<tr>
+										<th scope="row">6</th>
+										<td colspan="2">Certificado de Reservista ou prova de alistamento no servi&ccedil;o militar
+(para sexo masculino)</td>
+									</tr>
+									<tr>
+										<th scope="row">7</th>
+										<td colspan="2">Comprovante da &uacute;ltima vota&ccedil;&atilde;o (elei&ccedil;&atilde;o); certid&atilde;o de registro e quita&ccedil;&atilde;o.</td>
+									</tr>
+									<tr>
+										<th scope="row">8</th>
+										<td colspan="2">Certificado de Gradua&ccedil;&atilde;o / P&oacute;s / Mestrado / Doutorado</td>
+									</tr>
+									<tr>
+										<th scope="row">9</th>
+										<td colspan="2">Certid&atilde;o de Nascimento e/ou Casamento ou Declara&ccedil;&atilde;o de Uni&atilde;o Est&aacute;vel</td>
+									</tr>
+									<tr>
+										<th scope="row">10</th>
+										<td colspan="2">Certid&atilde;o de Nascimento dos filhos. Se universit&aacute;rios (at&eacute; 24 anos) apresentar comprovante de matr&iacute;cula
+(Obrigat&oacute;rio apresentar o CPF de dependentes, inclusive as crian&ccedil;as para atendimento ao eSocial)</td>
+									</tr>
+									<tr>
+										<th scope="row">11</th>
+										<td colspan="2">Caderneta de vacina&ccedil;&atilde;o atualizada dos filhos menores de 14 (quatorze) anos</td>
+									</tr>
+									<tr>
+										<th scope="row">12</th>
+										<td colspan="2">Comprovante de Inscri&ccedil;&atilde;o no PIS/PASEP; c&oacute;pia do cart&atilde;o cidad&atilde;o.</td>
+									</tr>
+									<tr>
+										<th scope="row">13</th>
+										<td colspan="2">Comprovante de Resid&ecirc;ncia
+( conta recente de &aacute;gua, luz, telefone ou g&aacute;s)</td>
+									</tr>
+									<tr>
+										<th scope="row">14</th>
+										<td colspan="2">Declara&ccedil;&atilde;o de Bens e Renda encaminhada &agrave; Receita Federal relativa ao &uacute;ltimo exerc&iacute;cio fiscal</td>
+									</tr>
+									<tr>
+										<th scope="row">15</th>
+										<td colspan="2">Curriculum Vitae</td>
+									</tr>
+									<tr>
+										<th scope="row">16</th>
+										<td colspan="2">C&oacute;pia do comprovante banc&aacute;rio (n&atilde;o pode ser conta poupan&ccedil;a, conta conjunta)
+(constar o n&uacute;mero da ag&ecirc;ncia e conta corrente com d&iacute;gito)</td>
+									</tr>
+								</tbody>
+							</table>
+						</fieldset>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

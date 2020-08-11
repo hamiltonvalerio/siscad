@@ -1,0 +1,23 @@
+#banco postgres
+spring.datasource.url=jdbc:postgresql://10.28.96.62:5432/siscad
+spring.datasource.username=postgres
+spring.datasource.password=@m@zu123
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+#hibernate
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto = update
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
+
+spring.datasource.continue-on-error=true
+
+
+spring.thymeleaf.mode=LEGACYHTML5
+spring.thymeleaf.cache=false
+spring.messages.basename=validation
+spring.mvc.view.prefix: /
+spring.mvc.view.suffix: .jsp
+# disable driver's feature detection
+spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults = false
+
+

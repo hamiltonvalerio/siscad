@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+ <title>EXTERNO</title>
+</head>
+<body>
+<section class="layout-content" layout:fragment="corpo">	
+ <div class="container">
+ 	<form class="form-horizontal" method="POST"	th:action="@{/salvarNovoEmpregado}" th:object="${empregado}">
+	  	<ul class="nav nav-tabs" id="myTab" role="tablist">
+		  <li class="nav-item">
+		    <a class="nav-link active" id="tab-dadospessoais" data-toggle="tab" href="#dadospessoais" role="tab" aria-controls="home" aria-selected="true">Dados Pessoais</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="tab-formacao" data-toggle="tab" href="#formacao" role="tab" aria-controls="profile" aria-selected="false">Perfil</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="tab-dependentes" data-toggle="tab" href="#dependentes" role="tab" aria-controls="contact" aria-selected="false">Contato</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="tab-dadosbancarios" data-toggle="tab" href="#dadosbancarios" role="tab" aria-controls="contact" aria-selected="false">Contato</a>
+		  </li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+		  <div class="tab-pane fade show active" id="dadospessoais" role="tabpanel" aria-labelledby="tab-dadospessoais">
+		  	<div class="form-group">
+				<label for="nome">Nome</label> 
+				<input type="text" class="form-control" id="nome" placeholder="Nome Completo" required>
+			</div>
+		  	<div class="form-row">
+		  		<div class="col">
+		  		</div>
+		  		<div class="col">
+		  		</div>
+		  		<div class="col">
+		  		</div>
+		  	</div>
+		  </div>
+		  <div class="tab-pane fade" id="formacao" role="tabpanel" aria-labelledby="tab-formacao">...</div>
+		  <div class="tab-pane fade" id="dependentes" role="tabpanel" aria-labelledby="tab-dependentes">...</div>
+		  <div class="tab-pane fade" id="dadosbancarios" role="tabpanel" aria-labelledby="tab-dadosbancarios">...</div>
+		</div>
+	</form>
+ </div>
+ </section>	
+</body>
+</html>

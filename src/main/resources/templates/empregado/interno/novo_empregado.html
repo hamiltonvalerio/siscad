@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>NOVO EMPREGADO</title>
+<link rel="stylesheet" href="/css/mensagensdealerta.css">
+<style>
+fieldset.scheduler-border {
+	border: 1px groove #ddd !important;
+	padding: 0 1.4em 1.4em 1.4em !important;
+	margin: 0 0 1.5em 0 !important;
+	-webkit-box-shadow: 0px 0px 0px 0px #000;
+	box-shadow: 0px 0px 0px 0px #000;
+}
+
+legend.scheduler-border {
+	width: inherit; /* Or auto */
+	padding: 0; /* To give a bit of padding on the left and right */
+	border-bottom: none;
+}
+</style>
+
+<script th:inline="javascript">
+	$(function() {
+		$("#testeselect").on('change', function() {
+			var un = /*[[${selectUnidades}]]*/null;
+			var selectedIndex = $("#testeselect option:selected").index();
+			var service = un[selectedIndex];
+			$.ajax({
+				type : "GET",
+				url : "http://10.28.96.63:8080/webservice/listahierarqs",
+				contentType : "application/json; charset=utf-8",
+				sync : false,
+				data : "unidade=" + service.handle,
+				dataType : "json",
+				crossDomain : true,
+				success : function(data) {
+					SucessCallback(data);
+				},
+				error : function(data) {
+					FailureCallBack(data);
+				}
+			});
+
+		});
+	});
+
+	function SucessCallback(result) {
+
+		//limpa o select
+		$('#areaestrutura').find('option').remove().end();
+
+		//popula o select
+		$.each(result, function(i, item) {
+			//alert("teste: "+item.handle);
+			$('#areaestrutura').append($('<option>', {
+				value : item.handle+','+item.nome+','+item.estrutura,
+				text : item.nome
+			}));
+		});
+	}
+
+	function FailureCallBack(result) {
+		alert("Erro");
+		alert(result.status + ' ' + result.statusText);
+		$('p').html(
+				'Resultado: ' + result.nome + ' <br /> Descrição: '
+						+ result.Description);
+	}
+</script>
+
+</head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+		<div class="container">
+			<div class="form-row">
+				<div class="col-9">
+					<fieldset class="scheduler-border">
+						<legend class="scheduler-border">Novo Empregado</legend>
+						<p></p>
+						<form class="form-horizontal" method="POST"
+							th:action="@{/empregado/interno/novo_empregado/salvarNovoEmpregado}"
+							th:object="${empregado}">
+							<div class="form-group">
+								<label for="nome">Nome</label> <input type="text"
+									class="form-control" id="nome" th:field="*{nome}"
+									placeholder="Nome Completo" required>
+							</div>
+							<div class="form-group">
+								<label for="cpf">CPF</label> <input type="text"
+									class="form-control" id="cpf" th:field="*{cpf}"
+									placeholder="CPF" required>
+							</div>
+							<div class="form-group">
+								<label for="email">Email</label> <input type="email"
+									class="form-control" id="email" th:field="*{email}"
+									placeholder="Email" required>
+							</div>
+							<div class="form-group">
+								<label for="Cargo">Cargo</label> <select required name="cs_Cargos"
+									th:field="*{cs_Cargos}" class="form-control">
+									<option value="" text="" />
+									<option th:each="c: ${selectCargos}" th:value="${c.handle+','+c.titulo}"
+										th:text="${c.titulo}"></option>
+								</select>
+							</div>
+							<div class="form-row">
+								<div class="col">
+									<label for="unidade">Unidade</label> <select
+										 required name="adm_Unidades" th:field="*{adm_Unidades}"
+										class="form-control" id="testeselect">
+										<option value="" text="" />
+										<option th:each="selectValue: ${selectUnidades}"
+											th:value="${selectValue.handle+','+selectValue.nome}" th:text="${selectValue.nome}">
+										</option>
+									</select>
+								</div>
+								<div class="col">
+									<label for="area">&Aacute;rea</label> <select
+										 required name="adm_Hierarquias" th:field="*{adm_Hierarquias}"
+										class="form-control" id="areaestrutura">
+										<option value="" text="" />
+
+									</select>
+								</div>
+
+							</div>
+							<div class="form-row">
+								<div class="col">
+									<label for="nivel">N&iacute;vel</label> <select
+										 required name="cs_Classes" th:field="*{cs_Classes}"
+										class="form-control">
+										<option value="" text="" />
+										<option th:each="selectValue: ${selectNiveis}"
+											th:value="${selectValue.handle+','+selectValue.nome+','+selectValue.empresa}" th:text="${selectValue.nome}">
+										</option>
+									</select>
+								</div>
+								<div class="col">
+									<label for="regtrab">Regime de trabalho semanal</label> <select
+										 required name="fp_Turnos" th:field="*{fp_Turnos}" class="form-control">
+										<option value="" text="" />
+										<option th:each="selectValue: ${selectTurnos}"
+											th:value="${selectValue.handle+','+selectValue.nome+','+selectValue.horassemana}" th:text="${selectValue.nome}">
+										</option>
+									</select>
+								</div>
+							</div>
+							<br>
+							<br>
+							<div class="form-row">
+								<div class="col">
+									<button type="submit" class="btn btn-primary">Gerar
+										Login e Senha</button>
+									<button type="reset" class="btn btn-warning">Limpar</button>
+								</div>
+							</div>
+							
+						</form>
+					</fieldset>
+				</div>
+				<div class="col-3">
+					<fieldset class="scheduler-border">
+						<legend class="scheduler-border">Painel</legend>
+						<div class="form-row">
+								<div th:if="${message}" th:text="${message}"
+									th:class="${'alerta ' + alertClass}" />
+							</div>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

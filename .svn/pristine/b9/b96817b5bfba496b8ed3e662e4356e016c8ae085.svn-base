@@ -1,0 +1,11 @@
+package mb.amazul.siscad.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import mb.amazul.siscad.model.Usuario;
+
+public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
+	
+	Usuario findByCpf(String cpf);
+	
+}

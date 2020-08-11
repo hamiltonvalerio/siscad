@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title>Home</title>
+
+<script type="text/javascript">
+	window
+			.addEventListener(
+					"DOMContentLoaded",
+					function() {
+						//elementos de apoio, criar configurações, etc.
+						var canvas = document.getElementById("canvas"), context = canvas
+								.getContext("2d"), video = document
+								.getElementById("video"), videoObj = {
+							video : true
+						}, image_format = "jpg", jpeg_quality = 85, errBack = function(
+								error) {
+							alert('Camera n&atilde;o encontrada \n Se estiver tudo conectado fechar e abrir o navegador novamente.');
+						};
+
+						// ouvintes vídeo colocado no lugar
+						if (navigator.getUserMedia) { // Padrão
+							//alert("a");
+							navigator.getUserMedia(videoObj, function(stream) {
+								video.src = stream;
+								video.play();
+								$(getValorElementPorIdJQuery("snap")).show();
+							}, errBack);
+						} else if (navigator.webkitGetUserMedia) { // WebKit-prefixed
+							//alert("b");
+							navigator.webkitGetUserMedia(videoObj, function(
+									stream) {
+								/*video.src = window.webkitURL
+										.createObjectURL(stream);*/
+								video.srcObject = stream;
+								video.play();
+								$(getValorElementPorIdJQuery("snap")).show();
+							}, errBack);
+						} else if (navigator.mozGetUserMedia) { // moz-prefixed
+							//alert("c");
+							navigator.mozGetUserMedia(videoObj,
+									function(stream) {
+										/*video.src = window.URL
+												.createObjectURL(stream);*/
+										video.srcObject = stream;
+										video.play();
+										$(getValorElementPorIdJQuery("snap"))
+												.show();
+									}, errBack);
+						}
+
+						//////////////////////////////////////////////////// Obter-Save Snapshot - imagem
+						$('#snap').click(function() {
+							context.drawImage(video, 0, 0, 190, 150);
+							// o fade só funciona no Firefox?
+							$("#video").fadeOut("slow");
+							$("#canvas").fadeIn("slow");
+							$(getValorElementPorIdJQuery("snap")).hide();
+							//$(getValorElementPorIdJQuery("reset")).show();
+							//$(getValorElementPorIdJQuery("upload")).show();
+
+							var dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+							var horaatual = $('#horaatual').text();
+							var dataatual = $('#dataatual').text();
+							//alert(horaatual);
+							//alert(dataatual);
+							$.ajax({
+								type : "POST",
+								url : "/siscad/ponto/ponto/uploadfoto",
+								/*url para salvar*/
+								data : {
+									imgBase64 : dataUrl,
+									hora : horaatual,
+									data : dataatual,
+									tipo : "ENTRADA"
+								},
+								success : function(data) {
+									$.ajax({
+										type : "GET",
+										url : "/siscad/listaponto",
+										contentType : "application/json; charset=utf-8",
+										sync : false,
+										data : "",
+										dataType : "json",
+										crossDomain : true,
+										success : function(data) {
+											$('#pontoTable').DataTable().ajax.reload();
+										},
+										error : function(data) {
+											alert(data.status + ' ' + data.statusText);
+										}
+									});
+								}
+							}).done(function(msg) {
+								$("#canvas").show();
+								$("#video").fadeIn("slow");
+								$("#canvas").fadeOut("slow");
+								$(getValorElementPorIdJQuery("snap")).show();
+								//$(getValorElementPorIdJQuery("reset")).hide();
+								$(getValorElementPorIdJQuery("upload")).hide();
+							});
+						});
+
+						$('#snapsai').click(function() {
+							context.drawImage(video, 0, 0, 190, 150);
+							// o fade só funciona no Firefox?
+							$("#video").fadeOut("slow");
+							$("#canvas").fadeIn("slow");
+							$(getValorElementPorIdJQuery("snapsai")).hide();
+							//$(getValorElementPorIdJQuery("reset")).show();
+							//$(getValorElementPorIdJQuery("upload")).show();
+
+							var dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+							var horaatual = $('#horaatual').text();
+							var dataatual = $('#dataatual').text();
+							//alert(horaatual);
+							//alert(dataatual);
+							$.ajax({
+								type : "POST",
+								url : "/siscad/ponto/ponto/uploadfoto",
+								/*url para salvar*/
+								data : {
+									imgBase64 : dataUrl,
+									hora : horaatual,
+									data : dataatual,
+									tipo : "SAIDA"
+
+								},
+								success : function(data) {
+									$.ajax({
+										type : "GET",
+										url : "/siscad/listaponto",
+										contentType : "application/json; charset=utf-8",
+										sync : false,
+										data : "",
+										dataType : "json",
+										crossDomain : true,
+										success : function(data) {
+											$('#pontoTable').DataTable().ajax.reload();
+										},
+										error : function(data) {
+											alert(data.status + ' ' + data.statusText);
+										}
+									});
+								}
+							}).done(function(msg) {
+								$("#canvas").show();
+								$("#video").fadeIn("slow");
+								$("#canvas").fadeOut("slow");
+								$(getValorElementPorIdJQuery("snap")).show();
+								//$(getValorElementPorIdJQuery("reset")).hide();
+								$(getValorElementPorIdJQuery("upload")).hide();
+							});
+						});
+						///////////////////////////////////////////////////////////////////////////////////
+						// redefinir - claro - para capturar novo Photo
+						$('#reset').click(function() {
+							$("#canvas").show();
+							$("#video").fadeIn("slow");
+							$("#canvas").fadeOut("slow");
+							$(getValorElementPorIdJQuery("snap")).show();
+							//$(getValorElementPorIdJQuery("reset")).hide();
+							$(getValorElementPorIdJQuery("upload")).hide();
+						});
+
+						// Upload da imagem para o servidor
+						$('#upload').click(function() {
+							var dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+							$.ajax({
+								type : "POST",
+								url : "/siscad/ponto/ponto/uploadfoto",
+								/*url para salvar*/
+								data : {
+									imgBase64 : dataUrl,
+									id : "Joe",/*parametros*/
+									horaatual : 25,
+									dataatual : 1
+								}
+							}).done(function(msg) {
+								$("#video").show();
+
+								//$("#uploading").hide();
+								//$("#uploaded").show();
+								//alert("foi");
+							});
+						});
+					}, false);
+
+	//$("#canvas").hide();
+
+	function getValorElementPorIdJQuery(componente) {
+		// alert('#'+componente+'');
+
+		return $('#' + componente + '').val();
+	}
+
+	var myVar = setInterval(myTimer, 1000);
+	function myTimer() {
+		var d = new Date(), displayDate;
+		if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+			displayDate = d.toLocaleTimeString('pt-BR');
+		} else {
+			displayDate = d.toLocaleTimeString('pt-BR', {
+				timeZone : 'America/Brasilia'
+			});
+		}
+		document.getElementById("horaatual").innerHTML = displayDate;
+	}
+
+	var myVar = setInterval(myDate, 0);
+	function myDate() {
+		var d = new Date();
+		var month = d.getMonth() + 1;
+		var day = d.getDate();
+		var output = (('' + day).length < 2 ? '0' : '') + day + '/'
+				+ (('' + month).length < 2 ? '0' : '') + month + '/'
+				+ d.getFullYear();
+		document.getElementById("dataatual").innerHTML = output;
+	}
+	
+	$(document).ready( function () {
+		 $('#pontoTable').DataTable({
+			"sAjaxSource": "/siscad/listaponto",
+			"sAjaxDataProp": "",
+			"aoColumns": [
+			    { "mData": "data"},
+			    { "mData": "hora"},
+		      	{ "mData": "tipo","width": "40%"},
+		      	{
+					data : "foto",
+					render: function (data, type, row, meta) {
+				        var imgsrc = 'data:image/png;base64,' + data; 
+				        return '<img class="img-responsive" src="' + imgsrc +'" height="100px" width="100px">';
+				    }
+				} ],
+			     dom: 'Bfrtip',
+			        buttons: [
+			            'copy', 'csv', 'excel', 'pdf', 'print'
+			        ]
+			})
+		}); 
+		 
+		$('#pontoTable').dataTable( {
+			  "aocolumns": [
+			    { "width": "10%" },
+			    { "width": "10%" },
+			    { "width": "40%" },
+			    { "width": "40%" }]
+		});
+</script>
+
+<style>
+fieldset.scheduler-border {
+	border: 1px groove #ddd !important;
+	padding: 0 1.4em 1.4em 1.4em !important;
+	margin: 0 0 1.5em 0 !important;
+	-webkit-box-shadow: 0px 0px 0px 0px #000;
+	box-shadow: 0px 0px 0px 0px #000;
+}
+
+legend.scheduler-border {
+	width: inherit; /* Or auto */
+	padding: 0; /* To give a bit of padding on the left and right */
+	border-bottom: none;
+}
+
+video {
+	width: 190px;
+	height: 140px;
+	position: absolute;
+}
+
+canvas {
+	width: 190px;
+	height: 140px;
+}
+
+.video_overlays {
+	width: 190px;
+	height: 140px;
+	position: absolute;
+	z-index: 2;
+	background-image: url(/siscad/image/user_icons/silhueta_ppp.jpg);
+	opacity: 0.3;
+}
+
+.tt {
+	width: 190px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+}
+</style>
+<link href="/siscad/css/datatables.css" rel="stylesheet">
+<link href="/siscad/css/datatab.scss" rel="stylesheet">
+</head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+		<div class="container">
+
+			<div sec:authorize="hasAnyAuthority('ADMIN','PONTO')">
+				<fieldset class="scheduler-border">
+					<legend class="scheduler-border">
+						<b>PONTO ELETR&Ocirc;NICO DE SIMPLES CONFER&Ecirc;NCIA</b>
+					</legend>
+					<div class="form-row">
+						<div class="col-12">
+							<form class="form-horizontal" id="formponto" method="POST"
+								th:action="@{/ponto/ponto/salvar}" th:object="${ponto}"
+								accept-charset="utf-8" enctype="multipart/form-data">
+								<div class="form-row">
+									<div class="col-1"></div>
+									<div class="col-10">
+										<table class="table">
+											<tbody>
+												<tr>
+													<th scope="row">Per&iacute;odo:</th>
+													<td><label th:text="${periodo}"> </label></td>
+												</tr>
+												<tr>
+													<th scope="row">Data:</th>
+													<td><div id="dataatual"></div></td>
+												</tr>
+												<tr>
+													<th scope="row">Hora Atual:</th>
+													<td><div id="horaatual"></div></td>
+												</tr>
+												<tr>
+													<th scope="row">Nome:</th>
+													<td><label th:text="${nome}"> </label></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="col-1"></div>
+								</div>
+								<div class="form-row">
+									<div class="col-5"></div>
+									<div class="col-2" style="height: 140px;">
+										<div id="video_overlays" class="video_overlays"></div>
+										<video id="video"></video>
+										<canvas id="canvas" width="190"></canvas>
+									</div>
+									<div class="col-5"></div>
+								</div>
+
+								<div class="form-row">
+									<div class="col-4"></div>
+									<div class="tt col-4" id="tt">
+										<button type='button' id="snap" class="btn btn-primary">Entrada</button>
+										<button type='button' id="snapsai" class="btn btn-secondary">
+											&nbsp Sa&iacute;da &nbsp</button>
+									</div>
+									<div class="col-4"></div>
+								</div>
+
+								<br> <br>
+
+								<div class="form-row">
+									<div class="col-12">
+										<fieldset class="scheduler-border">
+											<legend class="scheduler-border">Marca&ccedil;&otilde;es</legend>
+											<div class="form-row">
+
+												<table id="pontoTable"
+													class="table table-striped table-bordered custom"
+													style="width: 100%">
+
+													<!-- Header Table -->
+													<thead>
+														<tr>
+															<th>Data</th>
+															<th>Hora</th>
+															<th>Tipo</th>
+															<th>Foto</th>
+														</tr>
+													</thead>
+													<!-- Footer Table -->
+													<tfoot>
+														<tr>
+															<th>Data</th>
+															<th>Hora</th>
+															<th>Tipo</th>
+															<th>Foto</th>
+														</tr>
+													</tfoot>
+												</table>
+
+											</div>
+										</fieldset>
+
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		</div>
+
+	</section>
+</body>
+</html>

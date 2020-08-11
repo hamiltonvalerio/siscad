@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ficha_subreport_depen" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="40cd8ee2-5963-44be-bf45-fdaf7e0316ca">
+	<property name="ireport.zoom" value="1.4641000000000017"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="1fc09e32-17b6-48c4-8e0c-734302330545"/>
+	<parameter name="empid" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+     dependenteemp."id" AS dependenteemp_id,
+     dependenteemp."cpfdepen" AS dependenteemp_cpfdepen,
+     dependenteemp."datalt" AS dependenteemp_datalt,
+     dependenteemp."depirdepen" AS dependenteemp_depirdepen,
+     dependenteemp."dtnascdepen" AS dependenteemp_dtnascdepen,
+     dependenteemp."graupardepen" AS dependenteemp_graupardepen,
+     dependenteemp."nmaedepen" AS dependenteemp_nmaedepen,
+     dependenteemp."nomcompdepen" AS dependenteemp_nomcompdepen,
+     dependenteemp."usualt" AS dependenteemp_usualt,
+     dependenteemp."empregado_id" AS dependenteemp_empregado_id
+FROM
+     "public"."dependenteemp" dependenteemp
+WHERE
+     dependenteemp."empregado_id" = $P{empid}]]>
+	</queryString>
+	<field name="dependenteemp_id" class="java.lang.Long"/>
+	<field name="dependenteemp_cpfdepen" class="java.lang.String"/>
+	<field name="dependenteemp_datalt" class="java.sql.Timestamp"/>
+	<field name="dependenteemp_depirdepen" class="java.lang.String"/>
+	<field name="dependenteemp_dtnascdepen" class="java.sql.Timestamp"/>
+	<field name="dependenteemp_graupardepen" class="java.lang.String"/>
+	<field name="dependenteemp_nmaedepen" class="java.lang.String"/>
+	<field name="dependenteemp_nomcompdepen" class="java.lang.String"/>
+	<field name="dependenteemp_usualt" class="java.lang.String"/>
+	<field name="dependenteemp_empregado_id" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="50">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="50" uuid="8c378e19-d580-43ea-8feb-ea6fe41254a2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEPENDENTES]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement style="table_TH" mode="Opaque" x="0" y="1" width="170" height="20" uuid="024ab7d3-d893-4e91-9042-c16ac466aa45"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="170" y="1" width="82" height="20" uuid="fe545243-c936-42cf-b69d-4f2b96f95f04"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grau parentesco]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="252" y="1" width="73" height="20" uuid="7e0cb9f9-1a6e-43f8-99e2-46957aabce7e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="325" y="1" width="79" height="20" uuid="504ba033-69a8-46ee-94f6-1f8f45820f9c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Nascimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="404" y="1" width="100" height="20" uuid="9705a5cb-bc13-4fd9-99bd-2692de0c7939"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome da Mãe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="504" y="1" width="51" height="20" uuid="acd8eeaa-b777-45de-b3cb-2eb27cf1de41"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[IR]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement style="table_TD" x="0" y="0" width="170" height="20" uuid="a551ec38-91ab-404e-acc0-398a5bd60c98"/>
+				<textFieldExpression><![CDATA[$F{dependenteemp_nomcompdepen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="170" y="0" width="82" height="20" uuid="9f4d5b74-a8d5-4da9-b6e5-9e2ab767531f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dependenteemp_graupardepen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="252" y="0" width="73" height="20" uuid="0fd829dc-1d90-4e7d-bd73-ae1aad5ad29a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dependenteemp_cpfdepen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="325" y="0" width="79" height="20" uuid="fcba090e-dc88-4bb7-90a5-b83c7ea3feff"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dependenteemp_dtnascdepen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="404" y="0" width="100" height="20" uuid="cfb10916-f044-4eb8-8325-67eeb267ebc9"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dependenteemp_nmaedepen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="504" y="0" width="51" height="20" uuid="9b9851fa-b03a-42b7-8b3f-a32ce66ffb89"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dependenteemp_depirdepen}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

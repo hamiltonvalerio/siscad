@@ -1,0 +1,44 @@
+package mb.amazul.siscad.service;
+
+
+
+import java.util.Date;
+import java.util.HashSet;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import mb.amazul.siscad.model.Usuario;
+import mb.amazul.siscad.repository.PerfilRepository;
+import mb.amazul.siscad.repository.UsuarioRepository;
+
+@Service("usuarioService")
+public class UsuarioServiceImpl implements UsuarioService {
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+    
+    @Autowired
+    private PerfilRepository perfilRepository;
+    
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Override
+    public Usuario findByCpf(String cpf) {
+    	return usuarioRepository.findByCpf(cpf);
+    }
+    
+    @Override
+    public void save(Usuario usuario) {
+    	usuario.setPassword(bCryptPasswordEncoder.encode(usuario.getPassword()));
+    	usuario.setAtivo(1);
+    	usuario.setUsualt("Hamilton");
+    	usuario.setDatalt(new Date());
+    	usuario.setPerfis(new HashSet<>(perfilRepository.findAll()));
+    	//Perfil perfil = perfilRepository.find("ADMIN");
+    	//usuario.setPerfis(new HashSet<Perfil>(Arrays.asList(perfil)));
+        usuarioRepository.save(usuario);
+    }
+
+}

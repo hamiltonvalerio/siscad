@@ -1,0 +1,5 @@
+package mb.amazul.siscad.model;
+
+public class Empregado {
+
+}

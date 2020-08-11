@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="ISO-8859-1">
+ <title>Hack</title>
+</head>
+<body>
+<section class="layout-content" layout:fragment="corpo">	
+ <div class="container">
+  <h2>FORM CADASTRO HACK</h2>
+ </div>
+ </section>	
+</body>
+</html>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ficha_subreport_form" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0ec01bc0-63c8-4bf2-a459-390203840193">
+	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="empid" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     formacaoemp."id" AS formacaoemp_id,
+     formacaoemp."datalt" AS formacaoemp_datalt,
+     formacaoemp."titulacao" AS formacaoemp_titulacao,
+     formacaoemp."usualt" AS formacaoemp_usualt,
+     formacaoemp."empregado_id" AS formacaoemp_empregado_id,
+     formacaoemp."instensinosup_id" AS formacaoemp_instensinosup_id,
+     formacaoemp."anoconclusao" AS formacaoemp_anoconclusao,
+     formacaoemp."cursoemp" AS formacaoemp_cursoemp,
+     formacaoemp."curso" AS formacaoemp_curso,
+     formacaoemp."nomeinstituicao" AS formacaoemp_nomeinstituicao,
+     formacaoemp."instensinosup" AS formacaoemp_instensinosup,
+     formacaoemp."nomeinstensinosup" AS formacaoemp_nomeinstensinosup,
+     formacaoemp."areasconhecimento" AS formacaoemp_areasconhecimento,
+     formacaoemp."areasconhecimentonome" AS formacaoemp_areasconhecimentonome,
+     formacaoemp."grausensino" AS formacaoemp_grausensino,
+     formacaoemp."grausensinonome" AS formacaoemp_grausensinonome
+FROM
+     "public"."formacaoemp" formacaoemp
+WHERE
+     formacaoemp."empregado_id" = $P{empid}]]>
+	</queryString>
+	<field name="formacaoemp_id" class="java.lang.Long"/>
+	<field name="formacaoemp_datalt" class="java.sql.Timestamp"/>
+	<field name="formacaoemp_titulacao" class="java.lang.String"/>
+	<field name="formacaoemp_usualt" class="java.lang.String"/>
+	<field name="formacaoemp_empregado_id" class="java.lang.Long"/>
+	<field name="formacaoemp_instensinosup_id" class="java.lang.Integer"/>
+	<field name="formacaoemp_anoconclusao" class="java.lang.Integer"/>
+	<field name="formacaoemp_cursoemp" class="java.lang.String"/>
+	<field name="formacaoemp_curso" class="java.lang.Integer"/>
+	<field name="formacaoemp_nomeinstituicao" class="java.lang.String"/>
+	<field name="formacaoemp_instensinosup" class="java.lang.Integer"/>
+	<field name="formacaoemp_nomeinstensinosup" class="java.lang.String"/>
+	<field name="formacaoemp_areasconhecimento" class="java.lang.Integer"/>
+	<field name="formacaoemp_areasconhecimentonome" class="java.lang.String"/>
+	<field name="formacaoemp_grausensino" class="java.lang.Integer"/>
+	<field name="formacaoemp_grausensinonome" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="50">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="50" uuid="7ef7972e-0db3-402f-8c1f-47383954c191"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FORMAÇÃO]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement style="table_TH" x="0" y="0" width="357" height="20" uuid="784832e1-476a-46a6-a3a5-4a8fd69b3cd1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Curso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="357" y="0" width="124" height="20" uuid="52b29683-4a1e-4ce9-a1ef-b689f2d6d123"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grau de Ensino]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TH" x="481" y="0" width="74" height="20" uuid="b224a04f-6286-4f10-9389-af33eb1f8d95"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ano Conclusão]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="table_TD" x="0" y="0" width="357" height="20" uuid="5a9cb925-5e29-4967-9cd1-7647db7edbc9"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{formacaoemp_cursoemp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="357" y="0" width="124" height="20" uuid="d28ba35d-a27a-4728-81f9-0f1bc24e5b52"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{formacaoemp_grausensinonome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="481" y="0" width="74" height="20" uuid="a7d2b2e9-1811-4909-a0cf-939da3c3dc78"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{formacaoemp_anoconclusao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

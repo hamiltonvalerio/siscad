@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>USUÁRIO</title>
+<style>
+
+fieldset.scheduler-border {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+
+legend.scheduler-border {
+    width:inherit; /* Or auto */
+    padding:0 ; /* To give a bit of padding on the left and right */
+    border-bottom:none;
+}
+
+</style>
+<script type="text/javascript">
+
+$(document).ready( function () {
+ $('#userTable').DataTable({
+	"sAjaxSource": "/siscad/listausuarios",
+	"sAjaxDataProp": "",
+	"aoColumns": [
+		{ "mData": "id",
+	        "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+	        	if(oData.usuIcone == "user_inativo"){
+	        		$(nTd).html("<a href=/siscad/user/status?id="+oData.id+"&cpf="+oData.cpf+"&status="+oData.usuIcone+" onclick=\"return confirm('Deseja ativar o usu&aacute;rio?')\"><img src=\"/siscad/image/user_icons/"+oData.usuIcone+".png\"/></a>");	
+	        	}else{
+	        		$(nTd).html("<a href=/siscad/user/status?id="+oData.id+"&cpf="+oData.cpf+"&status="+oData.usuIcone+" onclick=\"return confirm('Deseja inativar o usu&aacute;rio?')\"><img src=\"/siscad/image/user_icons/"+oData.usuIcone+".png\"/></a>");
+	        	}
+	        }, "className": "dt-body-center"},
+	    { "mData": "id"},
+	    { "mData": "cpf"},
+      	{ "mData": "nome","width": "80%"},
+      	{ "mData": "usuativo"},
+	    { "mData": "datalt" },
+	    { "mData": "usualt" }],
+	     dom: 'Bfrtip',
+	        buttons: [
+	            'copy', 'csv', 'excel', 'pdf', 'print'
+	        ]
+	})
+}); 
+ 
+$('#userTable').dataTable( {
+	  "aocolumns": [
+	    { "width": "10%" },
+	    { "width": "10%" },
+	    { "width": "10%" },
+	    { "width": "50%" },
+	    { "width": "10%" },
+	    { "width": "20%" }]
+});
+
+
+</script>
+</head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+		<div class="container">
+		<fieldset class="scheduler-border">
+			<legend class="scheduler-border">Cadastrar Usuário</legend>
+			<form class="form-horizontal" method="POST"	th:action="@{/user/signup}" th:object="${usuario}">
+				<div class="form-group">
+		             <div class="col-md-3"></div>
+		             <div class="col-md-6">
+		             <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
+     			</div>
+     			<div class="form-group">
+					<label for="cpf">CPF</label> 
+					<input type="text" th:field="*{cpf}" class="form-control" id="cpf"
+                                placeholder="CPF" required autofocus>				
+				</div>
+				<div class="form-group">
+					<label for="nome">Nome</label> 
+					<input type="text" th:field="*{nome}" class="form-control" id="nome"
+                                placeholder="Nome" required autofocus>				
+				</div>
+				<div class="form-group">
+					<label for="nome">Password</label> 
+					<input type="password" th:field="*{password}" class="form-control" id="password"
+                                placeholder="Password" required autofocus>				
+				</div>
+				<div class="form-group">
+						<label>Perfil Inicial</label> 
+						<br />
+						<select id="perfil" th:field="*{perfis}" size="6" multiple="multiple" required="required">
+							<option th:each="p : ${listaPerfil}"
+									th:value="${{p}}"
+									th:text="${p.nome}">
+							</option>
+						</select>
+				</div>
+				<div class="form-control-feedback">
+                    <span class="text-danger align-middle" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                    </span>
+                </div>
+				<div class="form-row">
+					<div class="col">
+				  		<button type="submit" class="btn btn-success">Salvar</button>	
+				 	</div>
+				</div>
+			</form>
+			</fieldset>
+			<br>
+			<fieldset class="scheduler-border">
+			<legend class="scheduler-border">Lista de Usu&aacute;rios</legend>
+			<div class="form-row">
+				
+				<table id="userTable" class="table table-striped table-bordered custom" style="width:100%">
+      
+				       <!-- Header Table -->
+				       <thead>
+				            <tr>
+				            	<th>Id</th>
+				                <th>Id</th>
+								<th>CPF</th>
+								<th>Nome</th>
+								<th>Ativo</th>
+								<th>Data última alteração</th>
+								<th>Usuário</th>
+				            </tr>
+				        </thead>
+				        <!-- Footer Table -->
+				        <tfoot>
+				            <tr>
+				            	<th>Id</th>
+				                <th>Id</th>
+								<th>CPF</th>
+								<th>Nome</th>
+								<th>Ativo</th>
+								<th>Data última alteração</th>
+								<th>Usuário</th>
+				            </tr>
+				        </tfoot>
+				</table>
+				
+			</div>
+			</fieldset>
+		</div>
+	</section>
+</body>
+</html>

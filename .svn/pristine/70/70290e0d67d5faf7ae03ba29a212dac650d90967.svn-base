@@ -1,0 +1,71 @@
+package mb.amazul.siscad.config;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+@Configuration
+@EnableWebSecurity
+public class SiscadSecurityConfig extends WebSecurityConfigurerAdapter{
+
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	private DataSource dataSource;
+	
+	private final String USUARIOS_QUERY = "select cpf as username, password, ativo from usuario where cpf=?";
+	private final String PERFIS_QUERY = "select u.cpf as username, r.perfil as role from usuario u inner join usuario_perfil ur on (u.id = ur.usuario_id) inner join perfil r on (ur.perfil_id=r.perfil_id) where u.cpf=?";
+
+	
+	
+	 @Override
+	 protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+	  auth.jdbcAuthentication()
+	   .usersByUsernameQuery(USUARIOS_QUERY)
+	   .authoritiesByUsernameQuery(PERFIS_QUERY)
+	   .dataSource(dataSource)
+	   .passwordEncoder(bCryptPasswordEncoder);
+	 }
+	 
+	 @Override
+	 protected void configure(HttpSecurity http) throws Exception{
+	  http.authorizeRequests()
+	   .antMatchers("/").permitAll()
+	   .antMatchers("/login").permitAll()
+	   .antMatchers("/signup").permitAll()
+	   .antMatchers("/externo/**").hasRole("EXTERNO")
+	   .antMatchers("/home/**").hasAuthority("ADMIN").anyRequest()
+	   .authenticated().and().csrf().disable()
+	   .formLogin().loginPage("/login").failureUrl("/index?error=true")
+	   .defaultSuccessUrl("/home/home")
+	   .usernameParameter("cpf")
+	   .passwordParameter("password")
+	   .and().logout()
+	   .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+	   .logoutSuccessUrl("/")
+	   .and().rememberMe()
+	   .tokenRepository(persistentTokenRepository())
+	   .tokenValiditySeconds(60*60)
+	   .and().exceptionHandling().accessDeniedPage("/access_denied");
+	 }
+
+	 
+	 @Bean
+	 public PersistentTokenRepository persistentTokenRepository() {
+	  JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
+	  db.setDataSource(dataSource);
+	  
+	  return db;
+	 }
+}

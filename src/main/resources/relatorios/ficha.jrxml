@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ficha" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="29965c6c-b449-41d4-ad93-13ce50089a0a">
+	<property name="ireport.zoom" value="1.4641000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="582"/>
+	<parameter name="EMPREGADO_ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[124]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\amazul-desenvolvimento\\siscad\\src\\main\\resources\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataatual" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="MY_SUB_REPORT_FORM" class="java.io.InputStream" isForPrompting="false"/>
+	<parameter name="MY_SUB_REPORT_DEPEN" class="java.io.InputStream" isForPrompting="false"/>
+	<parameter name="LOGO" class="java.io.InputStream" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT
+     empregado."id" AS empregado_id,
+     empregado."cpf" AS empregado_cpf,
+     empregado."email" AS empregado_email,
+     empregado."nome" AS empregado_nome,
+     empregado."adm_unidade" AS empregado_adm_unidade,
+     empregado."datalt" AS empregado_datalt,
+     empregado."usualt" AS empregado_usualt,
+     empregado."datanasc" AS empregado_datanasc,
+     empregado."ufnasc" AS empregado_ufnasc,
+     empregado."munnasc" AS empregado_munnasc,
+     empregado."estadocivil" AS empregado_estadocivil,
+     empregado."rgemp" AS empregado_rgemp,
+     empregado."nomesocial" AS empregado_nomesocial,
+     empregado."sexoemp" AS empregado_sexoemp,
+     empregado."racacor" AS empregado_racacor,
+     empregado."tpsang" AS empregado_tpsang,
+     empregado."aposentado" AS empregado_aposentado,
+     empregado."fatorrh" AS empregado_fatorrh,
+     empregado."nbap" AS empregado_nbap,
+     empregado."cepres" AS empregado_cepres,
+     empregado."telcel" AS empregado_telcel,
+     empregado."telrec" AS empregado_telrec,
+     empregado."telres" AS empregado_telres,
+     empregado."bairrores" AS empregado_bairrores,
+     empregado."enderecores" AS empregado_enderecores,
+     empregado."ufres" AS empregado_ufres,
+     empregado."munres" AS empregado_munres,
+     empregado."estados" AS empregado_estados,
+     empregado."estadosres" AS empregado_estadosres,
+     empregado."digagencia" AS empregado_digagencia,
+     empregado."digconta" AS empregado_digconta,
+     empregado."numagencia" AS empregado_numagencia,
+     empregado."numconta" AS empregado_numconta,
+     empregado."bairroagencia" AS empregado_bairroagencia,
+     empregado."endagencia" AS empregado_endagencia,
+     empregado."munag" AS empregado_munag,
+     empregado."numendagencia" AS empregado_numendagencia,
+     empregado."ufag" AS empregado_ufag,
+     empregado."nomeagencia" AS empregado_nomeagencia,
+     empregado."cepagencia" AS empregado_cepagencia,
+     empregado."numerores" AS empregado_numerores,
+     empregado."nomeestadosnasc" AS empregado_nomeestadosnasc,
+     empregado."nomemunnasc" AS empregado_nomemunnasc,
+     empregado."nomeestadosres" AS empregado_nomeestadosres,
+     empregado."nomemunag" AS empregado_nomemunag,
+     empregado."nomemunres" AS empregado_nomemunres,
+     empregado."nomeufag" AS empregado_nomeufag,
+     empregado."rgemissorempnovo" AS empregado_rgemissorempnovo,
+     empregado."rgemissoremp" AS empregado_rgemissoremp,
+     empregado."religiao" AS empregado_religiao,
+     empregado."naturezaap" AS empregado_naturezaap,
+     empregado."nivelescolaridade" AS empregado_nivelescolaridade,
+     empregado."bancocontaemp" AS empregado_bancocontaemp,
+     empregado."banconovoemp" AS empregado_banconovoemp,
+     empregado."nomeestadocivil" AS empregado_nomeestadocivil,
+     empregado."nomereligiao" AS empregado_nomereligiao,
+     empregado."nomeracacor" AS empregado_nomeracacor,
+     empregado."nometpsang" AS empregado_nometpsang
+FROM
+     "public"."empregado" empregado
+WHERE
+     empregado."id" = $P{EMPREGADO_ID}]]>
+	</queryString>
+	<field name="empregado_id" class="java.lang.Long"/>
+	<field name="empregado_cpf" class="java.lang.String"/>
+	<field name="empregado_email" class="java.lang.String"/>
+	<field name="empregado_nome" class="java.lang.String"/>
+	<field name="empregado_adm_unidade" class="java.lang.Object"/>
+	<field name="empregado_datalt" class="java.sql.Timestamp"/>
+	<field name="empregado_usualt" class="java.lang.String"/>
+	<field name="empregado_datanasc" class="java.sql.Timestamp"/>
+	<field name="empregado_ufnasc" class="java.lang.String"/>
+	<field name="empregado_munnasc" class="java.lang.String"/>
+	<field name="empregado_estadocivil" class="java.lang.String"/>
+	<field name="empregado_rgemp" class="java.lang.String"/>
+	<field name="empregado_nomesocial" class="java.lang.String"/>
+	<field name="empregado_sexoemp" class="java.lang.String"/>
+	<field name="empregado_racacor" class="java.lang.String"/>
+	<field name="empregado_tpsang" class="java.lang.String"/>
+	<field name="empregado_aposentado" class="java.lang.String"/>
+	<field name="empregado_fatorrh" class="java.lang.String"/>
+	<field name="empregado_nbap" class="java.lang.String"/>
+	<field name="empregado_cepres" class="java.lang.String"/>
+	<field name="empregado_telcel" class="java.lang.String"/>
+	<field name="empregado_telrec" class="java.lang.String"/>
+	<field name="empregado_telres" class="java.lang.String"/>
+	<field name="empregado_bairrores" class="java.lang.String"/>
+	<field name="empregado_enderecores" class="java.lang.String"/>
+	<field name="empregado_ufres" class="java.lang.String"/>
+	<field name="empregado_munres" class="java.lang.String"/>
+	<field name="empregado_estados" class="java.lang.String"/>
+	<field name="empregado_estadosres" class="java.lang.Integer"/>
+	<field name="empregado_digagencia" class="java.lang.String"/>
+	<field name="empregado_digconta" class="java.lang.String"/>
+	<field name="empregado_numagencia" class="java.lang.String"/>
+	<field name="empregado_numconta" class="java.lang.String"/>
+	<field name="empregado_bairroagencia" class="java.lang.String"/>
+	<field name="empregado_endagencia" class="java.lang.String"/>
+	<field name="empregado_munag" class="java.lang.Integer"/>
+	<field name="empregado_numendagencia" class="java.lang.Integer"/>
+	<field name="empregado_ufag" class="java.lang.Integer"/>
+	<field name="empregado_nomeagencia" class="java.lang.String"/>
+	<field name="empregado_cepagencia" class="java.lang.String"/>
+	<field name="empregado_numerores" class="java.lang.Integer"/>
+	<field name="empregado_nomeestadosnasc" class="java.lang.String"/>
+	<field name="empregado_nomemunnasc" class="java.lang.String"/>
+	<field name="empregado_nomeestadosres" class="java.lang.String"/>
+	<field name="empregado_nomemunag" class="java.lang.String"/>
+	<field name="empregado_nomemunres" class="java.lang.String"/>
+	<field name="empregado_nomeufag" class="java.lang.String"/>
+	<field name="empregado_rgemissorempnovo" class="java.lang.String"/>
+	<field name="empregado_rgemissoremp" class="java.lang.Integer"/>
+	<field name="empregado_religiao" class="java.lang.Integer"/>
+	<field name="empregado_naturezaap" class="java.lang.Integer"/>
+	<field name="empregado_nivelescolaridade" class="java.lang.Integer"/>
+	<field name="empregado_bancocontaemp" class="java.lang.Integer"/>
+	<field name="empregado_banconovoemp" class="java.lang.String"/>
+	<field name="empregado_nomeestadocivil" class="java.lang.String"/>
+	<field name="empregado_nomereligiao" class="java.lang.String"/>
+	<field name="empregado_nomeracacor" class="java.lang.String"/>
+	<field name="empregado_nometpsang" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="82" y="11" width="393" height="58" uuid="16bb4f59-f368-4800-9dc8-cdb8ebd7ef2d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FICHA CADASTRAL DO EMPREGADO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="38" width="80" height="29" uuid="999f0806-b086-4eae-b966-d881dacebeca"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="475" y="40" width="80" height="29" uuid="d91f8bf9-4065-476e-b4c1-d6d2c169a10e"/>
+				<text><![CDATA[Nº SIAPE]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="11" width="80" height="26" uuid="38be773c-4a33-47ac-9bc4-d522b5496378"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="475" y="11" width="80" height="27" uuid="2138d9e0-d46e-455a-8ee3-c0a8dac14449"/>
+				<text><![CDATA[Nº BENNER]]></text>
+			</staticText>
+			<image>
+				<reportElement x="1" y="10" width="81" height="69" uuid="b42efb06-c9bb-4783-8a97-26989f59de18"/>
+				<imageExpression><![CDATA[$P{LOGO}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="9" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="488">
+			<staticText>
+				<reportElement x="1" y="11" width="156" height="26" uuid="e361df2b-c387-427b-83a5-a418721e0626"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dados Pessoais]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="155" y="245" width="134" height="20" uuid="65c2dfca-f602-4456-aa45-f072e3731d91"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_nomeestadosres}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="201" y="350" width="30" height="1" uuid="834068ae-65ef-42e5-a68f-d4783c372bf6"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="352" width="36" height="20" uuid="bc6baf0e-5680-4b4d-819b-16b2fd553498"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Banco:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="455" y="373" width="99" height="1" uuid="9afa1cce-307b-4c4e-a058-65cc882d30db"/>
+			</line>
+			<textField>
+				<reportElement x="40" y="285" width="171" height="20" uuid="416093f1-2ae3-464a-89a0-a7589cb7404c"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_bairrores}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="476" y="265" width="78" height="20" uuid="7f7b0b6c-3add-4fcc-b30f-578f62b468c5"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_numerores}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="223" width="40" height="20" uuid="a8827d15-bb2e-4992-9948-27e05cf1ea11"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Tel res:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="82" y="98" width="100" height="18" uuid="3af0fefa-a152-4047-9bed-4fab87953e94"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_datanasc}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="81" y="350" width="100" height="1" uuid="6ff9c776-ac5b-453c-b8bf-aacbc1d89ae6"/>
+			</line>
+			<line>
+				<reportElement x="40" y="304" width="173" height="1" uuid="08368592-447b-49b5-8cd2-e5b38bedb6e6"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="138" width="59" height="20" uuid="07b03521-daff-4f1c-9a6f-8a5f3bee0f3b"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Estado Civil:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="461" y="137" width="93" height="1" uuid="aa13dc86-04a3-44f6-a048-86a5609abb8a"/>
+			</line>
+			<staticText>
+				<reportElement x="450" y="265" width="26" height="20" uuid="fb534568-3740-46c6-afd1-289d1e15c770"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Nº:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="259" y="181" width="42" height="20" uuid="7564e3ae-0962-4241-b358-108227c5427b"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_aposentado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="118" width="162" height="18" uuid="b53320c6-0bae-426a-a70f-8bada169550d"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_rgemp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="55" y="262" width="395" height="20" uuid="3beca1e2-b5af-4e69-a168-0e0cd1e6f947"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_enderecores}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="395" y="330" width="100" height="20" uuid="28ad3cc5-046c-4baf-8841-97ab77bf27b1"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_numagencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="415" y="222" width="139" height="20" uuid="8b4c1c6e-bf27-451a-b4d2-343ea9413ea6"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_telrec}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="264" width="53" height="20" uuid="88f3d62f-4bf0-4090-a931-4d3def446dd2"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Endereço:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="188" y="331" width="5" height="20" uuid="10b1d142-1693-460d-9659-9efa00c68546"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="98" width="82" height="20" uuid="5a83ef0d-4fd9-44a7-8e8b-3ad701aba567"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Data Nascimento:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="265" y="119" width="159" height="20" uuid="03935b9c-93e8-435a-a2bf-d4f41b6b8ecb"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_rgemissorempnovo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="94" y="375" width="278" height="20" uuid="4c106c77-a221-4365-99e6-126abcf974c3"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_nomeagencia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="346" y="98" width="49" height="20" uuid="21171c1a-5fd1-4709-99b1-b18529231402"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Município:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="193" y="118" width="72" height="20" uuid="9ea98986-696a-4a1e-b20e-f910715361b1"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Órgão Emissor:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="243" width="100" height="20" uuid="0fb51bce-1072-4e6a-bd9b-80e984011d90"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_cepres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="139" width="264" height="20" uuid="7c20c141-6116-4b05-8dfb-bb04b3f9fb54"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_nomereligiao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="502" y="332" width="5" height="20" uuid="b3d380df-ad0b-4d87-bb06-61f6cb60364d"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<line>
+				<reportElement x="82" y="199" width="100" height="1" uuid="75d37bb5-4fa8-411b-a279-5780d9f1fddb"/>
+			</line>
+			<line>
+				<reportElement x="59" y="157" width="189" height="1" uuid="4016728c-3c3e-48c5-8938-ced2a14ab863"/>
+			</line>
+			<line>
+				<reportElement x="43" y="242" width="127" height="1" uuid="dc4fab5d-8ca0-4b4c-923d-b09795c29d09"/>
+			</line>
+			<staticText>
+				<reportElement x="372" y="223" width="43" height="20" uuid="64148a34-cacf-4b34-8ad9-7c78b324e0a8"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Recado:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="476" y="284" width="78" height="1" uuid="92ae61b6-5a25-493a-b0e2-7314cce815f4"/>
+			</line>
+			<staticText>
+				<reportElement x="311" y="332" width="84" height="20" uuid="50d5ea95-1e1a-4932-9ca3-8f337f16befe"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Nº da Agência:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="30" y="178" width="113" height="1" uuid="8df86a09-b96c-44d3-8831-23442685f30d"/>
+			</line>
+			<line>
+				<reportElement x="82" y="97" width="473" height="1" uuid="af97378c-8067-4177-aa64-d532c1deb1c8"/>
+			</line>
+			<textField>
+				<reportElement x="346" y="244" width="208" height="20" uuid="b550262e-bb3a-4a18-b6a1-4639b2ce8a96"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_nomemunres}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="78" y="222" width="476" height="1" uuid="5e5447d5-5817-4233-b518-eaddf2f523e1"/>
+			</line>
+			<staticText>
+				<reportElement x="290" y="242" width="56" height="20" uuid="561b20e2-989f-4234-a939-c6001cb15b08"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Município:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="211" y="178" width="343" height="1" uuid="e2e0e141-564f-40cd-852e-5ef5bafd263c"/>
+			</line>
+			<staticText>
+				<reportElement x="111" y="305" width="443" height="26" uuid="0a41597f-f916-4437-87ea-b752b1505d61"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[*não pode ser conta poupança ou conta conjunta*]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="43" y="222" width="127" height="20" uuid="53841bd7-2903-4b37-bf8f-14102ccbb5f6"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_telres}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="395" y="351" width="100" height="1" uuid="00629f3b-e7ca-4cac-9c91-d9c4b624b4ed"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="331" width="78" height="20" uuid="5eaea26c-d0da-41f1-b399-9d6b0aed564b"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Conta Salário:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="155" y="263" width="135" height="1" uuid="b1e20c8d-2f05-451d-a2bb-a835079b0b4c"/>
+			</line>
+			<line>
+				<reportElement x="213" y="117" width="122" height="1" uuid="f5ce7043-2839-4cdb-976e-3bd87616e8ce"/>
+			</line>
+			<textField>
+				<reportElement x="515" y="331" width="39" height="20" uuid="fd7de5f0-fce8-48d9-a656-7a855d33ca70"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_digagencia}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="19" y="136" width="162" height="1" uuid="53bf4403-3506-4e3f-882a-d034219c5c83"/>
+			</line>
+			<line>
+				<reportElement x="82" y="117" width="100" height="1" uuid="76df066f-c063-43a5-b641-9bcd1fa46baf"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="78" width="82" height="20" uuid="b66178e0-fa33-4ff7-b193-9568568d6b98"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Nome Completo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="193" y="180" width="66" height="20" uuid="d59cfe8c-35ca-4213-af8a-5c2ebab4629b"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Aposentado:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="285" width="36" height="20" uuid="0b9cccb3-15b4-4d6e-88cc-9d01f1e9c837"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Bairro:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="179" width="78" height="20" uuid="d99544af-1062-47f6-90de-34a7cdf490b2"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Tipo Sanguíneo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="78" y="203" width="476" height="20" uuid="f0bbbfe4-b9b3-4293-bed1-e0424500c577"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="82" y="78" width="473" height="20" uuid="9a1bb7db-a4d2-449f-b01b-72491c2f868b"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="311" y="181" width="94" height="20" uuid="f4215013-acef-4814-8762-791670f342c9"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[NB Aposentadoria:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="211" y="243" width="151" height="1" uuid="47621c4a-f6a4-4bc8-b3bf-8640308056c9"/>
+			</line>
+			<staticText>
+				<reportElement x="182" y="223" width="24" height="20" uuid="d0a46430-93f5-43d7-a147-7ca4760ff776"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Cel:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="30" y="263" width="100" height="1" uuid="281d64d4-1ceb-4a5d-9690-7077ae33bb0c"/>
+			</line>
+			<staticText>
+				<reportElement x="194" y="98" width="19" height="20" uuid="eb9c705c-99c1-4ae0-a071-99befcbbef48"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[UF:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="118" width="26" height="20" uuid="48472fbc-5ba2-4c0d-bf5a-09f4fb41f31c"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[CPF:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="461" y="117" width="93" height="20" uuid="b4176245-1f69-4a3e-847e-86d5fa8b7b64"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_cpf}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="155" y="159" width="51" height="20" uuid="94f5108f-5d0a-40bf-b28f-d6ba50d0336c"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Raça/Cor:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="259" y="200" width="42" height="1" uuid="bd0f5e1e-62a5-48b3-aafb-62e60927e837"/>
+			</line>
+			<textField>
+				<reportElement x="211" y="159" width="343" height="20" uuid="e2785019-8b30-478f-bfb4-93ff9d68a991"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_nomeracacor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="211" y="222" width="151" height="20" uuid="58a786d9-6b16-48f0-95a1-5e8c9ee1852b"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_telcel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="331" width="30" height="20" uuid="bfcba42c-5290-4e2a-8c61-e9e3275e7ac0"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_digconta}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="415" y="242" width="139" height="1" uuid="2287d2a5-604e-42b8-a9a9-ebeb18b2f538"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="202" width="78" height="20" uuid="9925d838-ff1f-4d7c-bc69-3481e67637e7"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[E-mail Pessoal:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="395" y="116" width="160" height="1" uuid="47a17aed-b6ad-4c04-9dc0-e6b62fc00016"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="374" width="93" height="20" uuid="f390429c-fd8d-4155-bc6b-de4fa37cadc8"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Nome da Agência:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="82" y="180" width="100" height="20" uuid="8ccde3ce-c1ee-46b1-935f-7c205dc22d4f"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_nometpsang}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="515" y="351" width="39" height="1" uuid="05f3f80a-b876-4c1d-9204-654de3dbb090"/>
+			</line>
+			<line>
+				<reportElement x="405" y="201" width="149" height="1" uuid="592807f4-94aa-49a0-9435-15d1c39751d2"/>
+			</line>
+			<line>
+				<reportElement x="55" y="284" width="395" height="1" uuid="9f0eda5f-c8e0-4729-9c4b-0a85632ac2d3"/>
+			</line>
+			<line>
+				<reportElement x="40" y="372" width="355" height="1" uuid="5b488b22-ff40-4490-b453-a763c9fca5ce"/>
+			</line>
+			<textField>
+				<reportElement x="40" y="352" width="355" height="20" uuid="f0636d9a-532a-4bfc-92d5-6ed876a7333d"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_banconovoemp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="138" width="189" height="20" uuid="ffb32101-1bee-4197-ab36-ae81e892f4aa"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_nomeestadocivil}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="346" y="263" width="208" height="1" uuid="63584849-8e11-486b-ba60-7381d3f74d0f"/>
+			</line>
+			<staticText>
+				<reportElement x="130" y="244" width="25" height="20" uuid="09dc9143-52b2-4550-8f5e-b2de3e4b3e1b"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[UF:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="213" y="98" width="122" height="20" uuid="9c2e4bf2-1e6e-4a61-b6dd-dc27b6e58535"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_nomeestadosnasc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="159" width="113" height="20" uuid="b99e47ce-bbdf-46a4-a4db-68ffe75b97b3"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_sexoemp}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="395" y="353" width="55" height="20" uuid="93be56d6-ad45-4844-8540-b8827024b739"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Nº Banco:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="289" y="158" width="265" height="1" uuid="57473911-b1c9-4343-8ba6-6583d768ede1"/>
+			</line>
+			<textField>
+				<reportElement x="405" y="181" width="149" height="20" uuid="5e5a0222-90a2-4ab9-9529-12dea88a1d05"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_nbap}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="82" y="331" width="100" height="20" uuid="9b0e2691-03b3-4f8c-ae70-96210f840006"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_numconta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="395" y="98" width="159" height="20" uuid="c1d824a6-17dc-4c7b-af33-ba86ae30b6bd"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_nomemunres}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="265" y="136" width="159" height="1" uuid="134a1241-c5d7-4df0-b151-d3fe4ac80f94"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="244" width="30" height="20" uuid="41d2c0f9-0041-4fe0-9f41-1f992a5196fe"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[CEP:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="248" y="138" width="42" height="20" uuid="5e47d8ae-8c46-4054-b434-ea747fdc81a1"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Religião:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="374" width="70" height="20" uuid="5164fc71-bb4b-4ebc-bd6b-47fd46a9a989"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[CEP Agência:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="449" y="394" width="105" height="1" uuid="06608384-ca5b-4dce-933d-40b23dac6aae"/>
+			</line>
+			<line>
+				<reportElement x="101" y="415" width="348" height="1" uuid="344b3f4f-da5a-41ca-9503-c7afed5a8ab8"/>
+			</line>
+			<staticText>
+				<reportElement x="1" y="396" width="100" height="20" uuid="999c6bdd-f45f-46aa-a0e5-50ab6e680d05"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Endereço da Agência:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="396" width="16" height="20" uuid="452cbd00-0044-4643-a1e5-e5adc2dd39a7"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Nº:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="416" width="35" height="20" uuid="966b5c22-f228-4ed8-a105-340b264e4e9e"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Bairro:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="471" y="414" width="83" height="1" uuid="4c72b09c-f995-4319-b57f-2c16359aa570"/>
+			</line>
+			<line>
+				<reportElement x="36" y="436" width="518" height="1" uuid="b951fb36-10db-4e74-8a0e-4fa52167e7d0"/>
+			</line>
+			<staticText>
+				<reportElement x="1" y="437" width="29" height="20" uuid="78ad160f-d96f-42dd-9327-cce5a6016208"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[UF:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="30" y="457" width="235" height="1" uuid="4ac8bc5a-801b-4a94-8204-d2db7769a321"/>
+			</line>
+			<staticText>
+				<reportElement x="272" y="438" width="51" height="20" uuid="cfaf484c-1371-4486-a77d-236c2c0cebdc"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Município:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="326" y="456" width="228" height="1" uuid="1a45b640-2ec7-419e-9c37-e95466b6e76f"/>
+			</line>
+			<textField>
+				<reportElement x="101" y="396" width="348" height="20" uuid="9619dd7a-fa76-470d-8517-c9cb61fe666a"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_endagencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="376" width="104" height="20" uuid="99ae56fa-a791-4b00-a590-0747b142c112"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_cepagencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="416" width="518" height="20" uuid="b884f951-e7b9-4617-9f23-c905ef079972"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_bairroagencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="436" width="235" height="20" uuid="2c14c219-1515-4138-9c40-fe2e5be2d5df"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_nomeufag}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="326" y="436" width="228" height="20" uuid="7ace10ee-b202-41ce-a0bb-61549d93f2fa"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_nomemunag}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="305" width="112" height="26" uuid="466ede62-d6f6-46b7-83aa-1536a1332b57"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dados Bancários]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="159" width="31" height="20" uuid="6272d262-9b09-4af5-b85c-a2d3cb9b3e72"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Sexo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="119" width="20" height="20" uuid="e1a361a9-b4c8-4521-b1db-a2bf05ac70b8"/>
+				<textElement verticalAlignment="Bottom">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[RG:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="84" y="393" width="288" height="2" uuid="3204b78b-f540-466d-8edf-e69a538939bf"/>
+			</line>
+			<break>
+				<reportElement x="0" y="487" width="554" height="1" uuid="d6c06748-d3b9-4e2b-884a-09886ea28986"/>
+			</break>
+			<textField>
+				<reportElement x="471" y="396" width="83" height="18" uuid="0bc90d8e-e518-4d1e-8f16-122bd21a308c"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{empregado_numagencia}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="1" y="0" width="553" height="50" uuid="47021083-f9cd-4254-b598-ba08bc15420b"/>
+				<subreportParameter name="empid">
+					<subreportParameterExpression><![CDATA[$P{EMPREGADO_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{MY_SUB_REPORT_FORM}]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="1" y="0" width="553" height="50" uuid="d8ee9403-719d-4d1a-878e-0e0e4d823850"/>
+				<subreportParameter name="empid">
+					<subreportParameterExpression><![CDATA[$P{EMPREGADO_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{MY_SUB_REPORT_DEPEN}]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="142">
+			<line>
+				<reportElement x="211" y="100" width="314" height="1" uuid="9d56dbdf-1282-45f5-8ae2-c986e707da39"/>
+			</line>
+			<staticText>
+				<reportElement x="211" y="28" width="90" height="20" uuid="57629f1c-6d11-478f-b9be-ee3eec191c0a"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[São Paulo, ]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="301" y="28" width="224" height="20" uuid="d5a6baf8-d5f9-46ed-9f5c-7f88bc8064f7"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

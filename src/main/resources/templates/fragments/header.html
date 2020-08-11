@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<header th:fragment="cabecalho">
+		<nav class="navbar navbar-inverse" style="background-color: #2e3192;">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">SISCAD - AMAZUL</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li><a href="#">Hôme</a></li>
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#" style="background-color: #2e3192;">RH<span
+							class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Novo Empregado</a></li>
+							<li><a th:href="@{/externo/form_externo}">Buscar</a></li>
+							<li><a href="#">Liberar Acesso</a></li>
+						</ul>
+					</li>
+					
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#" style="background-color: #2e3192;">TI<span
+							class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a th:href="@{/sistema/sistema}">Sistema</a></li>
+							<li><a href="#">Liberar Acesso</a></li>
+							<li class="dropdown"><a tabindex="-1" href="#">Cadastros</a>
+								<ul class="dropdown-menu">
+									<li><a tabindex="-1" href="#">Second level link</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					
+					<li><a href="#">Relatórios</a></li>
+					<li><a href="#">Ajuda</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
+							<span th:utext="${userName}"></span></a></li>
+					<li><a th:href="@{/logout}"><span
+							class="glyphicon glyphicon-log-in"></span> Sair</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+</body>
+</html>

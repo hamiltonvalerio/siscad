@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title>Home</title>
+<link rel="stylesheet" href="/siscad/css/mensagensdealerta.css">
+<style>
+fieldset.scheduler-border {
+	border: 1px groove #ddd !important;
+	padding: 0 1.4em 1.4em 1.4em !important;
+	margin: 0 0 1.5em 0 !important;
+	-webkit-box-shadow: 0px 0px 0px 0px #000;
+	box-shadow: 0px 0px 0px 0px #000;
+}
+
+legend.scheduler-border {
+	width: inherit; /* Or auto */
+	padding: 0; /* To give a bit of padding on the left and right */
+	border-bottom: none;
+}
+</style>
+<link href="/siscad/css/datatables.css" rel="stylesheet">
+<link href="/siscad/css/datatab.css" rel="stylesheet">
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+						var table = $('#emAdmTable')
+								.DataTable(
+										{
+											"sAjaxSource" : "/siscad/listaemp",
+											"sAjaxDataProp" : "",
+											"columns" : [
+													{
+														"mData" : "id",
+														"fnCreatedCell" : function(
+																nTd, sData,
+																oData, iRow,
+																iCol) {
+															if (oData.usuAtivo == "user_inativo") {
+																$(nTd)
+																		.html(
+																				"<a href=/siscad/home/status?id="
+																						+ oData.idUsu
+																						+ "&cpf="
+																						+ oData.cpf
+																						+ "&status="
+																						+ oData.usuAtivo
+																						+ " onclick=\"return confirm('Deseja ativar o usu&aacute;rio?')\"><img src=\"/siscad/image/user_icons/"+oData.usuAtivo+".png\"/></a>");
+															} else {
+																$(nTd)
+																		.html(
+																				"<a href=/siscad/home/status?id="
+																						+ oData.idUsu
+																						+ "&cpf="
+																						+ oData.cpf
+																						+ "&status="
+																						+ oData.usuAtivo
+																						+ " onclick=\"return confirm('Deseja inativar o usu&aacute;rio?')\"><img src=\"/siscad/image/user_icons/"+oData.usuAtivo+".png\"/></a>");
+															}
+														},
+														"className" : "dt-body-center"
+													},
+													{
+														"mData" : "id",
+														"fnCreatedCell" : function(
+																nTd, sData,
+																oData, iRow,
+																iCol) {
+															if (oData.usuAtivo == "user_inativo") {
+																$(nTd)
+																		.html(
+																				"INATIVO");
+															} else {
+																$(nTd)
+																		.html(
+																				"EM ADMISS&Atilde;O");
+															}
+														},
+														"className" : "dt-body-center"
+													},
+													{
+														"mData" : "nome",
+														"width" : "30%"
+													},
+													{
+														"mData" : "cs_Cargos[0].titulo"
+													},
+													{
+														"mData" : "adm_Unidades[0].nome"
+													},
+													{
+														"mData" : "adm_Hierarquias[0].estruturaNome"
+													},
+													{
+												        "mData" : "id","fnCreatedCell" : 
+												                function( nTd, sData, oData, iRow, iCol) {
+												                    if (oData.finalizadoexterno == false){
+												                        $(nTd).html("<img src=\"/siscad/image/dt_icons/draw.png\" title=\"Em preenchimento\"/>");
+												                    }
+												                    else{
+												                        $(nTd).html("<a href=/siscad/home/voltarcadastro?id="
+												                                                                                    + oData.id
+												                                                                                    + " onclick=\"return confirm('Deseja retornar para cadastro?')\"> <img src=\"/siscad/image/dt_icons/check.png\"/></a>");
+												                    }
+												                },
+												                    "className" : "dt-body-center"
+													},
+													{
+														"mData" : "id",
+														"fnCreatedCell" : function(
+																nTd, sData,
+																oData, iRow,
+																iCol) {
+															$(nTd)
+																	.html(
+																			"<a href=\"#\" data-toggle=\"modal\" data-target=\"#impressaoModal\" data-whatever="+ oData.id
+							+ "> <img src=\"/siscad/image/dt_icons/printer.png\"/></a>");
+														},
+														"className" : "dt-body-center"
+													},
+													{
+														"mData" : "id",
+														"fnCreatedCell" : function(
+																nTd, sData,
+																oData, iRow,
+																iCol) {
+															$(nTd)
+																	.html(
+																			"<a href=/siscad/home/editar?id="
+																					+ oData.id
+																					+ " onclick=\"return confirm('Deseja visualizar/editar a ficha cadastral?')\"><img src=\"/siscad/image/dt_icons/edit.png\"/></a>");
+														},
+														"className" : "dt-body-center"
+													},
+													{
+														"mData" : "id",
+														"fnCreatedCell" : function(
+																nTd, sData,
+																oData, iRow,
+																iCol) {
+															$(nTd)
+																	.html(
+																			"<a href=/siscad/home/excluir?id="
+																					+ oData.id
+																					+ " onclick=\"return confirm('Deseja excluir o novo empregado?')\"><img src=\"/siscad/image/dt_icons/delete.png\"/></a>");
+														},
+														"className" : "dt-body-center"
+													},
+													{
+														"mData" : "id",
+														"fnCreatedCell" : function(
+																nTd, sData,
+																oData, iRow,
+																iCol) {
+															$(nTd)
+																	.html(
+																			"<a href=/siscad/home/enviarbenner?id="
+																					+ oData.id
+																					+ " onclick=\"return confirm('Deseja FINALIZAR e ENVIAR para o Benner?')\"><img src=\"/siscad/image/dt_icons/benner.png\"/></a>");
+														},
+														"className" : "dt-body-center"
+													} ],
+											dom : 'Bfrtip',
+											buttons : [ 'copy', 'csv', 'excel',
+													'pdf', 'print' ]
+										});
+
+					});
+	$(document).ready(function() {
+		var teste = $('#impressaoModal').on('show.bs.modal', function(event) {
+			var button = $(event.relatedTarget) // Botão que acionou o modal
+			var recipient = button.data('whatever') // Extrai informação dos atributos data-*
+			// Se necessário, você pode iniciar uma requisição AJAX aqui e, então, fazer a atualização em um callback.
+			// Atualiza o conteúdo do modal. Nós vamos usar jQuery, aqui. No entanto, você poderia usar uma biblioteca de data binding ou outros métodos.
+			var modal = $(this)
+			modal.find('.modal-title').text('Imprimir documentos')
+			modal.find('.modal-body input').val(recipient)
+			$("#fichacadastral").attr("onclick", "Imprimir('/siscad/home/imprimirficha',"+recipient+")");
+			$("#fichadecacum").attr("onclick", "Imprimir('/siscad/home/imprimirdecacum',"+recipient+")");
+			$("#fichadecbio").attr("onclick", "Imprimir('/siscad/home/imprimirdecbio',"+recipient+")");
+			$("#fichatcu").attr("onclick", "Imprimir('/siscad/home/imprimirformtcu',"+recipient+")");
+			$("#fichabenef").attr("onclick", "Imprimir('/siscad/home/imprimirfichabenef',"+recipient+")");
+			$("#fichatodos").attr("onclick", "Imprimir('/siscad/home/imprimirfichatodos',"+recipient+")");
+			$("#fichaconflito").attr("onclick", "Imprimir('/siscad/home/imprimirfichaconflito',"+recipient+")");
+		});
+	});
+	
+	
+
+	var RestGet = function(urlin,codigo) {
+			$.ajax({
+				  method: "GET",
+				  url: urlin,
+				  data: { id: codigo },
+				  async: true,
+				  success: function (Data) {  
+					  $('#impressaoModal').modal('hide');  
+		           },  
+		           error: function (XMLHttpRequest, textStatus, errorThrown) {  
+		  
+		           }   
+				});
+	}
+	
+	var Imprimir = function(urlin,codigo) {
+		$('<form>', {
+            "id": "imprimir",
+            "html": '<input type="hidden" id="codigo" name="codigo" value="' + codigo + '" />',
+            "action": urlin
+        }).appendTo(document.body).submit();
+	}
+	
+	
+
+</script>
+</head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+		<div class="container">
+
+			<div class="form-row">
+				<div class="col-12">
+					<fieldset class="scheduler-border">
+						<legend class="scheduler-border">Painel</legend>
+						<div class="form-row">
+							<div th:if="${messageusu}" th:text="${messageusu}"
+								th:class="${'alerta ' + alertClass}" />
+						</div>
+
+					</fieldset>
+				</div>
+			</div>
+
+
+			<div class="form-row">
+				<div class="col-12">
+					<div sec:authorize="hasAnyAuthority('ADMIN','ADMIN_RH')">
+						<fieldset class="scheduler-border">
+							<legend class="scheduler-border">Em processo de
+								admiss&atilde;o</legend>
+
+							<div class="form-row">
+
+								<table id="emAdmTable"
+									class="table table-striped table-bordered custom"
+									style="width: 100%">
+
+									<!-- Header Table -->
+									<thead>
+										<tr>
+											<th>Id</th>
+											<th>Status</th>
+											<th>Nome</th>
+											<th>Cargo</th>
+											<th>Unidade</th>
+											<th>Area</th>
+											<th>Finalizado</th>
+											<th>Imp</th>
+											<th>Alt</th>
+											<th>Exc</th>
+											<th>Benner</th>
+										</tr>
+									</thead>
+									<!-- Footer Table -->
+									<tfoot>
+										<tr>
+											<th>Id</th>
+											<th>Status</th>
+											<th>Nome</th>
+											<th>Cargo</th>
+											<th>Unidade</th>
+											<th>Area</th>
+											<th>Finalizado</th>
+											<th>Imp</th>
+											<th>Alt</th>
+											<th>Exc</th>
+											<th>Benner</th>
+										</tr>
+									</tfoot>
+								</table>
+
+							</div>
+							
+
+						</fieldset>
+						
+					</div>
+				</div>
+			</div>
+
+			<div class="modal fade" id="impressaoModal" tabindex="-1"
+				role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Nova mensagem</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Fechar">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+
+							<table class="table">
+
+								<tbody>
+									<tr>
+										<th scope="row">#</th>
+										<td colspan="2">Todos em admiss&atilde;o</td>
+										<td colspan="1"><button type='button' id="fichatodos" class="btn btn-dark btn-sm">Imp</button></td>
+									</tr>
+									<tr>
+										<th scope="row">1</th>
+										<td colspan="2">Ficha Cadastral do Empregado</td>
+										<td colspan="1"><button type='button' id="fichacadastral" class="btn btn-primary btn-sm">Imp</button></td>
+									</tr>
+									<tr>
+										<th scope="row">2</th>
+										<td colspan="2">Declara&ccedil;&atilde;o para fins de controle de acumula&ccedil;&atilde;o...</td>
+										<td colspan="1"><button type='button' id="fichadecacum" class="btn btn-primary btn-sm">Imp</button></td>
+									</tr>
+									<tr>
+										<th scope="row">3</th>
+										<td colspan="2">Formul&aacute;rio TCU</td>
+										<td colspan="1"><button type='button' id="fichatcu" class="btn btn-primary btn-sm">Imp</button></td>
+									</tr>
+									
+									<tr>
+										<th scope="row">#</th>
+										<td colspan="2">Todos Assinatura do Contrato</td>
+										<td colspan="1"><button type='button' id="fichatodoscontrato" class="btn btn-dark btn-sm">Imp</button></td>
+									</tr>
+									<tr>
+										<th scope="row">4</th>
+										<td colspan="2">Declara&ccedil;&atilde;o dados biogr&aacute;ficos</td>
+										<td colspan="1"><button type='button' id="fichadecbio" class="btn btn-primary btn-sm">Imp</button></td>
+									</tr>
+									<tr>
+										<th scope="row">5</th>
+										<td colspan="2">Formul&aacute;rio de Benef&iacute;cios</td>
+										<td colspan="1"><button type='button' id="fichabenef" class="btn btn-primary btn-sm">Imp</button></td>
+									</tr>
+									<tr>
+										<th scope="row">6</th>
+										<td colspan="2">Declara&ccedil;&atilde;o de Conflito de Interesses</td>
+										<td colspan="1"><button type='button' id="fichaconflito" class="btn btn-primary btn-sm">Imp</button></td>
+									</tr>
+
+								</tbody>
+							</table>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Fechar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+</body>
+</html>

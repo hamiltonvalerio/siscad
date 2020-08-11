@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+ <title>Home</title>
+</head>
+<body>
+<section class="layout-content" layout:fragment="corpo">	
+ <div class="container">
+  <h2>Ola <span th:utext="${userName}"></span></h2>
+  <br><br>
+  <div sec:authorize="hasRole('ADMIN')">
+  	This content is only shown to administrators.
+  </div>
+ 
+  <div sec:authorize="hasRole('USER')">
+    This content is only shown to users.
+  </div>
+ </div>
+ </section>	
+</body>
+</html>

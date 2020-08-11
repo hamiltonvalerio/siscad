@@ -1,0 +1,11 @@
+package mb.amazul.siscad.service;
+
+import mb.amazul.siscad.model.Usuario;
+
+public interface UsuarioService {
+   
+	public void save(Usuario usuario);
+    
+	public Usuario findByCpf(String cpf);
+
+}
